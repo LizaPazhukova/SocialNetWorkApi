@@ -13,6 +13,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SocialNetwork.Dal.Models;
 using SocialNetwork.Dal;
+using SocialNetwork.Dal.Repositories;
+using SocialNetwork.Logic.Interfaces;
+using SocialNetwork.Logic.Services;
 
 namespace SocialNetwork
 {
@@ -37,6 +40,18 @@ namespace SocialNetwork
 
             services.AddIdentityServer()
                 .AddApiAuthorization<AppUser, ApplicationDbContext>();
+
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IMessageRepository, MessageRepository>();
+            services.AddScoped<IPostRepository, PostRepository>();
+            services.AddScoped<IRequestRepository, RequestRepository>();
+            services.AddScoped<ILikeRepository, LikeRepository>();
+
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IMessageService, MessageService>();
+            services.AddScoped<IPostService, PostService>();
+            services.AddScoped<IFriendRequestService, FriendRequestService>();
+
 
             services.AddAuthentication()
                 .AddIdentityServerJwt();
