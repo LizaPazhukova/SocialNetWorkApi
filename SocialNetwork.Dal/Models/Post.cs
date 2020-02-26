@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SocialNetwork.Dal.Models
 {
@@ -10,8 +11,7 @@ namespace SocialNetwork.Dal.Models
         public DateTime Date { get; set; }
         public int AppUserId { get; set; }
         public AppUser AppUser { get; set; }
-        public int? ParentPostId { get; set; }
-        public List<Post> Comments { get; set; } = new List<Post>();
+       // public List<Comment> Comments { get; set; } 
         public List<Like> Likes { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using SocialNetwork.Dal.Models;
+﻿using SocialNetwork.Dal;
+using SocialNetwork.Dal.Models;
 using SocialNetwork.Dal.Repositories;
 using SocialNetwork.Logic.Interfaces;
 using System;
@@ -9,14 +10,14 @@ namespace SocialNetwork.Logic.Services
 {
     public class MessageService : IMessageService
     {
-        private readonly IMessageRepository _messageRepository;
-        public MessageService(IMessageRepository messageRepository)
+        private readonly IUnitOfWork _unitOfWork;
+        public MessageService(IUnitOfWork unitOfWork)
         {
-            _messageRepository = messageRepository;
+            _unitOfWork = unitOfWork;
         }
         public IEnumerable<Message> GetUserMessages(int currentUserId)
         {
-            return _messageRepository.GetAll(x => x.AppUser)
+            return _unitOfWork.Messages.GetAll(x => x.AppUser)
                                      .Where(x => x.ToUserId == currentUserId || x.FromUserId == currentUserId)
                                      .GroupBy(m => new
                                      {
@@ -36,11 +37,12 @@ namespace SocialNetwork.Logic.Services
                 Date = DateTime.Now,
                 ToUserId = toUserId
             };
-            _messageRepository.Create(message);
+            _unitOfWork.Messages.Create(message);
+            _unitOfWork.Save();
         }
         public IEnumerable<Message> GetUserMessagesWithOneUser()
         {
-            return _messageRepository.GetAll(x => x.AppUser)
+            return _unitOfWork.Messages.GetAll(x => x.AppUser)
                                      .GroupBy(m => new
                                      {
 

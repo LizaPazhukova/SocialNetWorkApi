@@ -1,4 +1,5 @@
-﻿using SocialNetwork.Dal.Models;
+﻿using SocialNetwork.Dal;
+using SocialNetwork.Dal.Models;
 using SocialNetwork.Dal.Repositories;
 using SocialNetwork.Logic.Interfaces;
 using System;
@@ -10,40 +11,40 @@ namespace SocialNetwork.Logic.Services
 {
     public class FriendRequestService : IFriendRequestService
     {
-        private readonly IRequestRepository _requestRepository;
-        private readonly IUserRepository _userRepository;
-        public FriendRequestService(IRequestRepository requestRepository, IUserRepository userRepository)
+        private readonly IUnitOfWork _unitOfWork;
+        public FriendRequestService(IUnitOfWork unitOfWork)
         {
-            _requestRepository = requestRepository;
-            _userRepository = userRepository;
+            _unitOfWork = unitOfWork;
         }
 
 
         public void AcceptRequest(int id)
         {
-            var request = _requestRepository.GetById(id);
-            var user1 = _userRepository.GetById(request.FromUserId);
-            var user2 = _userRepository.GetById(request.ToUserId);
+            var request = _unitOfWork.Requests.GetById(id);
+            var user1 = _unitOfWork.Users.GetById(request.FromUserId);
+            var user2 = _unitOfWork.Users.GetById(request.ToUserId);
             user1.Friends.Add(user2);
             user2.Friends.Add(user1);
-            _requestRepository.Delete(request); 
+            _unitOfWork.Requests.Delete(request);
+            _unitOfWork.Save();
         }
 
         public IEnumerable<Request> GetCurrentUserRequest(int currentUserId)
         {
-            return _requestRepository.GetAll(x => x.AppUser).Where(x => x.ToUserId == currentUserId || x.FromUserId != currentUserId);
+            return _unitOfWork.Requests.GetAll(x => x.AppUser).Where(x => x.ToUserId == currentUserId || x.FromUserId != currentUserId);
         }
 
         public IEnumerable<AppUser> GetUserFriends(int currentUserId)
         {
-            var user = _userRepository.GetAll(u => u.Friends).SingleOrDefault(x => x.Id == currentUserId);
+            var user = _unitOfWork.Users.GetAll(u => u.Friends).SingleOrDefault(x => x.Id == currentUserId);
             return user.Friends;
         }
 
         public void RejectRequest(int id)
         {
-            var request = _requestRepository.GetById(id);
-            _requestRepository.Delete(request);
+            var request = _unitOfWork.Requests.GetById(id);
+            _unitOfWork.Requests.Delete(request);
+            _unitOfWork.Save();
         }
 
         public void SendRequest(int toUserId, int fromUserId)
@@ -54,7 +55,8 @@ namespace SocialNetwork.Logic.Services
                 Date = DateTime.Now,
                 ToUserId = toUserId
             };
-            _requestRepository.Create(request);
+            _unitOfWork.Requests.Create(request);
+            _unitOfWork.Save();
         }
     }
 }

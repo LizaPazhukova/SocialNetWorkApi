@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SocialNetwork.Dal.Migrations
 {
-    public partial class ChangeDbContext : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -228,9 +228,7 @@ namespace SocialNetwork.Dal.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Text = table.Column<string>(nullable: true),
                     Date = table.Column<DateTime>(nullable: false),
-                    AppUserId = table.Column<int>(nullable: false),
-                    ParentPostId = table.Column<int>(nullable: true),
-                    PostId = table.Column<int>(nullable: true)
+                    AppUserId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -241,12 +239,6 @@ namespace SocialNetwork.Dal.Migrations
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Posts_Posts_PostId",
-                        column: x => x.PostId,
-                        principalTable: "Posts",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -382,11 +374,6 @@ namespace SocialNetwork.Dal.Migrations
                 name: "IX_Posts_AppUserId",
                 table: "Posts",
                 column: "AppUserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Posts_PostId",
-                table: "Posts",
-                column: "PostId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Requests_FromUserId",

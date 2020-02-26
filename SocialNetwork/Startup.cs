@@ -16,6 +16,8 @@ using SocialNetwork.Dal;
 using SocialNetwork.Dal.Repositories;
 using SocialNetwork.Logic.Interfaces;
 using SocialNetwork.Logic.Services;
+using System;
+using Newtonsoft.Json;
 
 namespace SocialNetwork
 {
@@ -46,6 +48,7 @@ namespace SocialNetwork
             services.AddScoped<IPostRepository, PostRepository>();
             services.AddScoped<IRequestRepository, RequestRepository>();
             services.AddScoped<ILikeRepository, LikeRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IMessageService, MessageService>();
@@ -55,7 +58,7 @@ namespace SocialNetwork
 
             services.AddAuthentication()
                 .AddIdentityServerJwt();
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
             services.AddRazorPages();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -99,18 +102,18 @@ namespace SocialNetwork
                 endpoints.MapRazorPages();
             });
 
-            app.UseSpa(spa =>
-            {
-                // To learn more about options for serving an Angular SPA from ASP.NET Core,
-                // see https://go.microsoft.com/fwlink/?linkid=864501
+            //app.UseSpa(spa =>
+            //{
+            //    // To learn more about options for serving an Angular SPA from ASP.NET Core,
+            //    // see https://go.microsoft.com/fwlink/?linkid=864501
+            //   // spa.Options.StartupTimeout = new TimeSpan(0, 5, 0);
+            //    spa.Options.SourcePath = "ClientApp";
 
-                spa.Options.SourcePath = "ClientApp";
-
-                if (env.IsDevelopment())
-                {
-                    spa.UseAngularCliServer(npmScript: "start");
-                }
-            });
+            //    if (env.IsDevelopment())
+            //    {
+            //        spa.UseAngularCliServer(npmScript: "start");
+            //    }
+            //});
         }
     }
 }

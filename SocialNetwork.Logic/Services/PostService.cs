@@ -1,4 +1,5 @@
-﻿using SocialNetwork.Dal.Models;
+﻿using SocialNetwork.Dal;
+using SocialNetwork.Dal.Models;
 using SocialNetwork.Dal.Repositories;
 using SocialNetwork.Logic.Interfaces;
 using System;
@@ -9,16 +10,14 @@ namespace SocialNetwork.Logic.Services
 {
     public class PostService : IPostService
     {
-        private readonly IPostRepository _postRepository;
-        private readonly ILikeRepository _likeRepository;
-        public PostService(IPostRepository postRepository, ILikeRepository likeRepository)
+        private readonly IUnitOfWork _unitOfWork;
+        public PostService(IUnitOfWork unitOfWork)
         {
-            _postRepository = postRepository;
-            _likeRepository = likeRepository;
+           _unitOfWork = unitOfWork;
         }
         public IEnumerable<Post> GetPosts()
         {
-            return _postRepository.GetAll(x => x.Comments,x => x.Likes, x=>x.AppUser).Where(x=>x.ParentPostId == null);
+            return _unitOfWork.Posts.GetAll(x => x.Likes, x=>x.AppUser);
         }
         public void Create(int userId, string text)
         {
@@ -28,23 +27,24 @@ namespace SocialNetwork.Logic.Services
                 AppUserId = userId,
                 Date = DateTime.Now
             };
-            _postRepository.Create(post);
+            _unitOfWork.Posts.Create(post);
+            _unitOfWork.Save();
         }
-        public void CreateComment(int id, int userId, string text)
-        {
-            var post = _postRepository.GetById(id);
-            post.Comments.Add(new Post()
-            {
-                Text = text,
-                AppUserId = userId,
-                Date = DateTime.Now,
-                ParentPostId = id
-            });
-            _postRepository.Update(post);
-        }
+        //public void CreateComment(int id, int userId, string text)
+        //{
+        //    var post = _unitOfWork.Posts.GetById(id);
+        //    post.Comments.Add(new Post()
+        //    {
+        //        Text = text,
+        //        AppUserId = userId,
+        //        Date = DateTime.Now,
+        //        ParentPostId = id
+        //    });
+        //    _unitOfWork.Posts.Update(post);
+        //}
         public void LikePost(int userId, int postId)
         {
-            var existingLike = _likeRepository.GetAll().FirstOrDefault(u => u.UserId == userId && u.PostId == postId);
+            var existingLike = _unitOfWork.Likes.GetAll().FirstOrDefault(u => u.UserId == userId && u.PostId == postId);
             if (existingLike == null)
             {
                 Like like = new Like()
@@ -53,14 +53,15 @@ namespace SocialNetwork.Logic.Services
                     Date = DateTime.Now,
                     PostId = postId
                 };
-            
-                _likeRepository.Create(like);
+
+                _unitOfWork.Likes.Create(like);
             }
             else
             {
-                _likeRepository.Delete(existingLike);
+                _unitOfWork.Likes.Delete(existingLike);
             }
 
+            _unitOfWork.Save();
         }
     }
 }

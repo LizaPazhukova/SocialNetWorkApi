@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 
 namespace SocialNetwork.Dal
 {
-    public abstract class RepositoryBase<T> : IRepository<T> where T : class
+    public class RepositoryBase<T> : IRepository<T> where T : class
     {
         protected ApplicationDbContext ApplicationDbContext { get; set; }
 
@@ -27,23 +27,21 @@ namespace SocialNetwork.Dal
         public void Create(T entity)
         {
             this.ApplicationDbContext.Set<T>().Add(entity);
-            ApplicationDbContext.SaveChanges();
         }
 
         public void Update(T entity)
         {
             this.ApplicationDbContext.Set<T>().Update(entity);
-            ApplicationDbContext.SaveChanges();
         }
 
         public void Delete(T entity)
         {
             this.ApplicationDbContext.Set<T>().Remove(entity);
-            ApplicationDbContext.SaveChanges();
         }
         public T GetById(int id)
         {
             return this.ApplicationDbContext.Set<T>().Find(id);
         }
+        
     }
 }

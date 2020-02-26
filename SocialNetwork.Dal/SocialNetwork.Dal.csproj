@@ -5,25 +5,23 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="IdentityServer4.EntityFramework.Storage" Version="3.1.1" />
-    <PackageReference Include="Microsoft.AspNetCore.ApiAuthorization.IdentityServer" Version="3.1.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="3.1.1" />
+    <Compile Remove="Migrations\20200225194855_Initial.cs" />
+    <Compile Remove="Migrations\20200225194855_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20200225200800_FixCommentForeignKeys.cs" />
+    <Compile Remove="Migrations\20200225200800_FixCommentForeignKeys.Designer.cs" />
+    <Compile Remove="Migrations\20200225201319_FixCommentForeignKeys1.cs" />
+    <Compile Remove="Migrations\20200225201319_FixCommentForeignKeys1.Designer.cs" />
+    <Compile Remove="Migrations\20200225202645_RemoveCommentsFromPost.cs" />
+    <Compile Remove="Migrations\20200225202645_RemoveCommentsFromPost.Designer.cs" />
+    <Compile Remove="Migrations\20200225203841_RemoveComment.cs" />
+    <Compile Remove="Migrations\20200225203841_RemoveComment.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore">
-      <HintPath>..\..\..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.aspnetcore.identity.entityframeworkcore\2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.EntityFrameworkCore">
-      <HintPath>..\..\..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.entityframeworkcore\2.2.0\lib\netstandard2.0\Microsoft.EntityFrameworkCore.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.EntityFrameworkCore.Relational">
-      <HintPath>..\..\..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.entityframeworkcore.relational\2.2.0\lib\netstandard2.0\Microsoft.EntityFrameworkCore.Relational.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.EntityFrameworkCore.SqlServer">
-      <HintPath>..\..\..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.entityframeworkcore.sqlserver\2.2.0\lib\netstandard2.0\Microsoft.EntityFrameworkCore.SqlServer.dll</HintPath>
-    </Reference>
+    <PackageReference Include="IdentityServer4.EntityFramework.Storage" Version="3.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.ApiAuthorization.IdentityServer" Version="3.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="3.1.1" />
   </ItemGroup>
 
 </Project>

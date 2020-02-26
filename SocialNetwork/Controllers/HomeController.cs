@@ -8,6 +8,7 @@ using SocialNetwork.Logic.Services;
 using SocialNetwork.Logic.Interfaces;
 using SocialNetwork.Dal.Models;
 using System.Security.Claims;
+using SocialNetwork.Inputs;
 
 namespace SocialNetwork.Controllers
 {
@@ -23,13 +24,15 @@ namespace SocialNetwork.Controllers
             _postService = postService;
         }
 
+        [HttpGet("posts")]
         public IEnumerable<Post> Get()
         {
-            IEnumerable<Post> posts = _postService.GetPosts().ToList();
+            IEnumerable<Post> posts = _postService.GetPosts();
 
-            return posts.OrderByDescending(d => d.Date);
+            return posts;
         }
 
+        [HttpGet("users")]
         public IEnumerable<AppUser> Users()
         {
             IEnumerable<AppUser> users = _userService.GetUsers();
@@ -43,19 +46,19 @@ namespace SocialNetwork.Controllers
             return users;
         }
 
-        [HttpPost]
-        public IActionResult Create(string text)
+        [HttpPost("post")]
+        public IActionResult Create([FromBody]PostInput input)
         {
             var userId = Convert.ToInt32(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            _postService.Create(userId, text);
-            return RedirectToAction("Index");
+            _postService.Create(userId, input.Text);
+            return Ok();
         }
-        public IActionResult CreateComment(int id, string text)
-        {
-            var userId = Convert.ToInt32(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            _postService.CreateComment(id, userId, text);
-            return RedirectToAction("Index");
-        }
+        //public IActionResult CreateComment(int id, string text)
+        //{
+        //    var userId = Convert.ToInt32(User.FindFirstValue(ClaimTypes.NameIdentifier));
+        //    _postService.CreateComment(id, userId, text);
+        //    return RedirectToAction("Index");
+        //}
         public IActionResult LikePost(int id)
         {
             var userId = Convert.ToInt32(User.FindFirstValue(ClaimTypes.NameIdentifier));

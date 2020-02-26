@@ -10,8 +10,8 @@ using SocialNetwork.Dal;
 namespace SocialNetwork.Dal.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200219202827_ChangeDbContext")]
-    partial class ChangeDbContext
+    [Migration("20200226114815_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -389,20 +389,12 @@ namespace SocialNetwork.Dal.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("ParentPostId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("PostId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Text")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AppUserId");
-
-                    b.HasIndex("PostId");
 
                     b.ToTable("Posts");
                 });
@@ -515,10 +507,6 @@ namespace SocialNetwork.Dal.Migrations
                         .HasForeignKey("AppUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("SocialNetwork.Dal.Models.Post", null)
-                        .WithMany("Comments")
-                        .HasForeignKey("PostId");
                 });
 
             modelBuilder.Entity("SocialNetwork.Dal.Models.Request", b =>

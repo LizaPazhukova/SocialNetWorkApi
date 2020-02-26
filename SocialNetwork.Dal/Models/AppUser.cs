@@ -10,10 +10,10 @@ namespace SocialNetwork.Dal.Models
 {
     public class AppUser : IdentityUser<int>
     {
-      //  [PersonalData, Required, StringLength(20)]
+        [PersonalData, Required, StringLength(20)]
         public string FirstName { get; set; }
 
-     //   [PersonalData, Required, StringLength(20)]
+        [PersonalData, Required, StringLength(20)]
         public string LastName { get; set; }
 
         public string FullName { get { return $"{FirstName} {LastName}"; } }
@@ -24,6 +24,7 @@ namespace SocialNetwork.Dal.Models
         public List<Message> Messages { get; set; }
         public List<AppUser> Friends { get; set; } = new List<AppUser>();
         public List<Like> Likes { get; set; }
+   //     public List<Comment> Comments { get; set; }
         public byte[] Avatar { get; set; }
     }
 }

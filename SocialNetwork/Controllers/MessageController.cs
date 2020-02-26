@@ -27,13 +27,16 @@ namespace SocialNetwork.Controllers
         //    return View();
         //}
 
-        [HttpPost]
+        [HttpPost("send")]
         public IActionResult Send(int id, string messageText)
         {
             var fromUserId = Convert.ToInt32(User.FindFirstValue(ClaimTypes.NameIdentifier));
             _messageService.SendMessage(id, fromUserId, messageText);
             return RedirectToAction("Index", "Home");
+            //return IActionResult<Message>(message)
         }
+
+        [HttpGet("messages")]
         public IEnumerable<Message> Messages()
         {
             var currentUserId = Convert.ToInt32(User.FindFirstValue(ClaimTypes.NameIdentifier));
