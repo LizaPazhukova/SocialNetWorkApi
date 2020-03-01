@@ -26,12 +26,12 @@ namespace SocialNetwork.Controllers
         //{
         //    return View();
         //}
-
+        [HttpGet("sendRequest/{id}")]
         public IActionResult SendRequest(int id)
         {
             var fromUserId = Convert.ToInt32(User.FindFirstValue(ClaimTypes.NameIdentifier));
             _friendRequestService.SendRequest(id, fromUserId);
-            return RedirectToAction("Users", "Home");
+            return Ok();
         }
         public IEnumerable<Request> Requests()
         {

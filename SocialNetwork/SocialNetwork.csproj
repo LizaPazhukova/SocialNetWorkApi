@@ -31,7 +31,19 @@
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="ClientApp\src\app\models\users.ts" />
+    <None Remove="ClientApp\src\app\services\friendRequest.service.ts" />
+    <None Remove="ClientApp\src\app\services\user.service.ts" />
+    <None Remove="ClientApp\src\app\users\user.component.ts" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\SocialNetwork.Logic\SocialNetwork.Logic.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\models\users.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\services\friendRequest.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\services\user.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\users\user.component.ts" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

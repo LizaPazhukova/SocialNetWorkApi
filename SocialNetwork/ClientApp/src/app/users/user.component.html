@@ -1,0 +1,21 @@
+<h1 id="tableLabel">Users</h1>
+
+<p>This component demonstrates users in social network.</p>
+
+<p *ngIf="!users"><em>Loading...</em></p>
+
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="users">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Surname</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users">
+      <td>{{ user.firstName }}</td>
+      <td>{{ user.lastName }}</td>
+      <td><button (click)="sendFriendRequest(user.id)">Send Request</button></td>
+    </tr>
+  </tbody>
+</table>

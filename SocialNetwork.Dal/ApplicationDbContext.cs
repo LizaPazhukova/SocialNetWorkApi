@@ -35,6 +35,7 @@ namespace SocialNetwork.Dal
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+           
             base.OnModelCreating(builder);
             builder.ConfigurePersistedGrantContext(_operationalStoreOptions.Value);
             builder.Entity<AppUser>().Ignore(e => e.FullName);
@@ -43,5 +44,6 @@ namespace SocialNetwork.Dal
         public DbSet<Message> Messages { get; set; }
         public DbSet<Request> Requests { get; set; }
         public DbSet<Like> Likes { get; set; }
+        public DbSet<Comment> Comments { get; set; }
     }
 }

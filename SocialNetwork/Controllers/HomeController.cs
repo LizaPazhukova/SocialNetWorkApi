@@ -53,12 +53,13 @@ namespace SocialNetwork.Controllers
             _postService.Create(userId, input.Text);
             return Ok();
         }
-        //public IActionResult CreateComment(int id, string text)
-        //{
-        //    var userId = Convert.ToInt32(User.FindFirstValue(ClaimTypes.NameIdentifier));
-        //    _postService.CreateComment(id, userId, text);
-        //    return RedirectToAction("Index");
-        //}
+        [HttpPost("comment")]
+        public IActionResult CreateComment(int id, string text)
+        {
+            var userId = Convert.ToInt32(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            _postService.CreateComment(id, userId, text);
+            return Ok();
+        }
         public IActionResult LikePost(int id)
         {
             var userId = Convert.ToInt32(User.FindFirstValue(ClaimTypes.NameIdentifier));

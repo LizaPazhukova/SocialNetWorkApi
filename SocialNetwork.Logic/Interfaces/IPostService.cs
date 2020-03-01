@@ -9,7 +9,7 @@ namespace SocialNetwork.Logic.Interfaces
     {
         void Create(int userId, string text);
         IEnumerable<Post> GetPosts();
-        //void CreateComment(int id, int userId, string text);
+        void CreateComment(int id, int userId, string text);
         void LikePost(int userId, int postId);
     }
 }

@@ -15,6 +15,8 @@
     <Compile Remove="Migrations\20200225202645_RemoveCommentsFromPost.Designer.cs" />
     <Compile Remove="Migrations\20200225203841_RemoveComment.cs" />
     <Compile Remove="Migrations\20200225203841_RemoveComment.Designer.cs" />
+    <Compile Remove="Migrations\20200226184527_AddComment.cs" />
+    <Compile Remove="Migrations\20200226184527_AddComment.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

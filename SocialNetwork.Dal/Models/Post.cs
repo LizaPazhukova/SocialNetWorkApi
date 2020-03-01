@@ -11,7 +11,7 @@ namespace SocialNetwork.Dal.Models
         public DateTime Date { get; set; }
         public int AppUserId { get; set; }
         public AppUser AppUser { get; set; }
-       // public List<Comment> Comments { get; set; } 
+        public List<Comment> Comments { get; set; } = new List<Comment>();
         public List<Like> Likes { get; set; }
     }
 }

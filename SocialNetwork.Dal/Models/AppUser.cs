@@ -24,7 +24,7 @@ namespace SocialNetwork.Dal.Models
         public List<Message> Messages { get; set; }
         public List<AppUser> Friends { get; set; } = new List<AppUser>();
         public List<Like> Likes { get; set; }
-   //     public List<Comment> Comments { get; set; }
+        public List<Comment> Comments { get; set; }
         public byte[] Avatar { get; set; }
     }
 }

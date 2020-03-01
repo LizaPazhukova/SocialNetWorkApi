@@ -30,18 +30,18 @@ namespace SocialNetwork.Logic.Services
             _unitOfWork.Posts.Create(post);
             _unitOfWork.Save();
         }
-        //public void CreateComment(int id, int userId, string text)
-        //{
-        //    var post = _unitOfWork.Posts.GetById(id);
-        //    post.Comments.Add(new Post()
-        //    {
-        //        Text = text,
-        //        AppUserId = userId,
-        //        Date = DateTime.Now,
-        //        ParentPostId = id
-        //    });
-        //    _unitOfWork.Posts.Update(post);
-        //}
+        public void CreateComment(int id, int userId, string text)
+        {
+            var post = _unitOfWork.Posts.GetById(id);
+            post.Comments.Add(new Comment()
+            {
+                Text = text,
+                AppUserId = userId,
+                Date = DateTime.Now,
+                PostId = id
+            });
+            _unitOfWork.Posts.Update(post);
+        }
         public void LikePost(int userId, int postId)
         {
             var existingLike = _unitOfWork.Likes.GetAll().FirstOrDefault(u => u.UserId == userId && u.PostId == postId);
