@@ -43,9 +43,9 @@ namespace SocialNetwork.Controllers
             IEnumerable<Message> messages = _messageService.GetUserMessages(currentUserId);
             return messages;
         }
-        public IEnumerable<Message> MessagesWithOneUser()
+        public IEnumerable<Message> MessagesWithOneUser(int otherUserId, int currentUserId)
         {
-            IEnumerable<Message> messages = _messageService.GetUserMessagesWithOneUser();
+            IEnumerable<Message> messages = _messageService.GetUserMessagesWithOneUser(otherUserId, currentUserId);
             return messages;
         }
     }

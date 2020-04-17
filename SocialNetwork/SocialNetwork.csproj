@@ -32,6 +32,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="ClientApp\src\app\models\users.ts" />
+    <None Remove="ClientApp\src\app\posts\post.component.ts" />
     <None Remove="ClientApp\src\app\services\friendRequest.service.ts" />
     <None Remove="ClientApp\src\app\services\user.service.ts" />
     <None Remove="ClientApp\src\app\users\user.component.ts" />
@@ -41,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\app\models\users.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\posts\post.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\services\friendRequest.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\services\user.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\users\user.component.ts" />

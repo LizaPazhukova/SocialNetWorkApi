@@ -13,6 +13,7 @@ import { ApiAuthorizationModule } from 'src/api-authorization/api-authorization.
 import { AuthorizeGuard } from 'src/api-authorization/authorize.guard';
 import { AuthorizeInterceptor } from 'src/api-authorization/authorize.interceptor';
 import { UserComponent } from './users/user.component';
+import { PostComponent } from './posts/post.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { UserComponent } from './users/user.component';
     HomeComponent,
     CounterComponent,
     FetchDataComponent,
-    UserComponent
+    UserComponent,
+    PostComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -33,6 +35,7 @@ import { UserComponent } from './users/user.component';
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthorizeGuard] },
       { path: 'users', component: UserComponent, canActivate: [AuthorizeGuard] },
+      { path: 'post', component: PostComponent, canActivate: [AuthorizeGuard] },
     ])
   ],
   providers: [

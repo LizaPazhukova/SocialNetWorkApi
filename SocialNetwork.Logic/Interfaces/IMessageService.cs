@@ -9,6 +9,6 @@ namespace SocialNetwork.Logic.Interfaces
     {
         void SendMessage(int toUserId, int fromUserId, string messageText);
         IEnumerable<Message> GetUserMessages(int currentUserId);
-        IEnumerable<Message> GetUserMessagesWithOneUser();
+        IEnumerable<Message> GetUserMessagesWithOneUser(int otherUserId, int curentUserId);
     }
 }

@@ -40,12 +40,14 @@ namespace SocialNetwork.Logic.Services
             _unitOfWork.Messages.Create(message);
             _unitOfWork.Save();
         }
-        public IEnumerable<Message> GetUserMessagesWithOneUser()
+        public IEnumerable<Message> GetUserMessagesWithOneUser(int otherUserId, int currentUserId)
         {
             return _unitOfWork.Messages.GetAll(x => x.AppUser)
+                                     .Where(x => x.ToUserId == currentUserId && x.FromUserId == otherUserId || x.ToUserId == otherUserId && x.FromUserId == currentUserId)
                                      .GroupBy(m => new
                                      {
-
+                                         MinId = m.FromUserId <= m.ToUserId ? m.FromUserId : m.ToUserId,
+                                         MaxId = m.FromUserId > m.ToUserId ? m.FromUserId : m.ToUserId
                                      })
                                      .Select(gm => gm.OrderByDescending(m => m.Date)
                                      .FirstOrDefault());

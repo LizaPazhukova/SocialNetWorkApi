@@ -1,34 +1,25 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { retry, catchError } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
 import { User } from '../models/users';
+import { Observable } from 'rxjs';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-
-  myAppUrl: string;
-  myApiUrl: string;
+  public users: User[];
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json; charset=utf-8'
     })
   };
-  constructor(private http: HttpClient) {
-    this.myAppUrl = environment.appUrl;
-    this.myApiUrl = 'api/Users/';
+  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
+    
   }
 
-  getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(this.myAppUrl + this.myApiUrl)
-      .pipe(
-        retry(1),
-        // catchError(this.errorHandler)
-      );
+  getUsers() : Observable<User[]>{
+    return this.http.get<User[]>(this.baseUrl + 'api/home/users');
   }
 }
 
