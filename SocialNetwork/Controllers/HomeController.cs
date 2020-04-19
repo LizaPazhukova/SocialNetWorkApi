@@ -47,11 +47,11 @@ namespace SocialNetwork.Controllers
         }
 
         [HttpPost("post")]
-        public IActionResult Create([FromBody]PostInput input)
+        public IActionResult Create(Post post)
         {
             var userId = Convert.ToInt32(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            _postService.Create(userId, input.Text);
-            return Ok();
+            _postService.Create(userId, post.Text);
+            return CreatedAtAction("Get", new { id = post.Id }, post);
         }
         [HttpPost("comment")]
         public IActionResult CreateComment(int id, string text)

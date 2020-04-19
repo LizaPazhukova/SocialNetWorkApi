@@ -31,9 +31,11 @@
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="ClientApp\src\app\models\post.ts" />
     <None Remove="ClientApp\src\app\models\users.ts" />
     <None Remove="ClientApp\src\app\posts\post.component.ts" />
     <None Remove="ClientApp\src\app\services\friendRequest.service.ts" />
+    <None Remove="ClientApp\src\app\services\post.service.ts" />
     <None Remove="ClientApp\src\app\services\user.service.ts" />
     <None Remove="ClientApp\src\app\users\user.component.ts" />
   </ItemGroup>
@@ -41,9 +43,11 @@
     <ProjectReference Include="..\SocialNetwork.Logic\SocialNetwork.Logic.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\models\post.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\users.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\posts\post.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\services\friendRequest.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\services\post.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\services\user.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\users\user.component.ts" />
   </ItemGroup>
@@ -75,5 +79,23 @@
       </ResolvedFileToPublish>
     </ItemGroup>
   </Target>
-
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+  <TypeScriptExperimentalDecorators>True</TypeScriptExperimentalDecorators>
+  <TypeScriptEmitDecoratorMetadata>True</TypeScriptEmitDecoratorMetadata>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <TypeScriptTarget>ES2015</TypeScriptTarget>
+    <TypeScriptJSXEmit>React</TypeScriptJSXEmit>
+    <TypeScriptModuleKind>CommonJS</TypeScriptModuleKind>
+    <TypeScriptCompileOnSaveEnabled>True</TypeScriptCompileOnSaveEnabled>
+    <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
+    <TypeScriptRemoveComments>False</TypeScriptRemoveComments>
+    <TypeScriptOutFile />
+    <TypeScriptOutDir />
+    <TypeScriptGeneratesDeclarations>False</TypeScriptGeneratesDeclarations>
+    <TypeScriptNoEmitOnError>True</TypeScriptNoEmitOnError>
+    <TypeScriptSourceMap>True</TypeScriptSourceMap>
+    <TypeScriptMapRoot />
+    <TypeScriptSourceRoot />
+  </PropertyGroup>
 </Project>
