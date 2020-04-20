@@ -37,6 +37,7 @@
     <None Remove="ClientApp\src\app\services\friendRequest.service.ts" />
     <None Remove="ClientApp\src\app\services\post.service.ts" />
     <None Remove="ClientApp\src\app\services\user.service.ts" />
+    <None Remove="ClientApp\src\app\user-profile\user-profile.component.ts" />
     <None Remove="ClientApp\src\app\users\user.component.ts" />
   </ItemGroup>
   <ItemGroup>
@@ -49,6 +50,7 @@
     <TypeScriptCompile Include="ClientApp\src\app\services\friendRequest.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\services\post.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\services\user.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\user-profile\user-profile.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\users\user.component.ts" />
   </ItemGroup>
 
