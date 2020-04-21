@@ -9,6 +9,7 @@ namespace SocialNetwork.Logic.Interfaces
     {
         IEnumerable<AppUser> GetUsers();
         IEnumerable<AppUser> SearchedUsers(string name);
+        AppUser GetUser(int id);
 
     }
 }

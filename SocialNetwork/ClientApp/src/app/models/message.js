@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-class User {
+class Message {
 }
-exports.User = User;
-//# sourceMappingURL=users.js.map
+exports.Message = Message;
+//# sourceMappingURL=message.js.map

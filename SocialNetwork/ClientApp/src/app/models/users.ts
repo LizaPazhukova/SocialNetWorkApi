@@ -3,4 +3,5 @@ export class User {
   firstName: string;
   lastName: string;
   fullName: string;
+  avatar: number[];
 }

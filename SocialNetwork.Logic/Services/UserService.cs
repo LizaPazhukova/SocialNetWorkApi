@@ -16,6 +16,10 @@ namespace SocialNetwork.Logic.Services
         {
             _unitOfWork = unitOfWork;
         }
+        public AppUser GetUser(int id)
+        {
+            return _unitOfWork.Users.GetById(id);
+        }
         public IEnumerable<AppUser> GetUsers()
         {
             return _unitOfWork.Users.GetAll();

@@ -31,6 +31,12 @@ namespace SocialNetwork.Controllers
 
             return posts;
         }
+        [HttpGet("currentUser")]
+        public AppUser GetCurrentUser()
+        {
+            int userId = Convert.ToInt32(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            return _userService.GetUser(userId);
+        }
 
         [HttpGet("users")]
         public IEnumerable<AppUser> Users()

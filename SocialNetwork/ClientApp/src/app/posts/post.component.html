@@ -55,7 +55,7 @@
     <div class="d-flex justify-content-between align-items-center">
       <div class="d-flex justify-content-between align-items-center">
         <div class="mr-2">
-          <img class="rounded-circle" width="45" src="data:image/jpeg;base64,@(Convert.ToBase64String(item.AppUser.Avatar))" alt="">
+          <img class="rounded-circle" width="45" height="45" src="data:image/png;base64,{{user.avatar}}">
         </div>
         <p class="card-text">
           {{p.text}}

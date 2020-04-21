@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
+
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
@@ -15,6 +16,7 @@ import { AuthorizeInterceptor } from 'src/api-authorization/authorize.intercepto
 import { UserComponent } from './users/user.component';
 import { PostComponent } from './posts/post.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { MessageComponent } from './message/message.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,8 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     FetchDataComponent,
     UserComponent,
     PostComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    MessageComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -38,6 +41,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
       { path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthorizeGuard] },
       { path: 'users', component: UserComponent, canActivate: [AuthorizeGuard] },
       { path: 'post', component: PostComponent, canActivate: [AuthorizeGuard] },
+      { path: 'messages', component: MessageComponent, canActivate: [AuthorizeGuard] },
     ])
   ],
   providers: [

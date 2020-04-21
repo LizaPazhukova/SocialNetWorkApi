@@ -1,0 +1,21 @@
+<h1 id="tableLabel">Users</h1>
+
+<p>This component demonstrates messages.</p>
+
+<p *ngIf="!messages"><em>Loading...</em></p>
+
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="messages">
+  <thead>
+    <tr>
+      <th>Message</th>
+      
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let message of messages">
+      <td>{{ message.text }}</td>
+      
+      
+    </tr>
+  </tbody>
+</table>
