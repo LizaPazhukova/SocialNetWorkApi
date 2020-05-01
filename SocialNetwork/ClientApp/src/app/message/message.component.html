@@ -1,4 +1,4 @@
-<h1 id="tableLabel">Users</h1>
+<h1 id="tableLabel">Messages</h1>
 
 <p>This component demonstrates messages.</p>
 
@@ -8,14 +8,11 @@
   <thead>
     <tr>
       <th>Message</th>
-      
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let message of messages">
-      <td>{{ message.text }}</td>
-      
-      
+      <td>{{ message.body }}</td>
     </tr>
   </tbody>
 </table>

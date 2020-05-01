@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 })
 export class MessageService {
   public messages: Message[];
-
+ 
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json; charset=utf-8'
@@ -22,5 +22,7 @@ export class MessageService {
   getMessages(): Observable<Message[]> {
     return this.http.get<Message[]>(this.baseUrl + 'api/message/messages');
   }
-  
+  sendMessage(message: Message): Observable<Message> {
+    return this.http.post<Message>(this.baseUrl + 'api/message/send', message);
+  }
 }

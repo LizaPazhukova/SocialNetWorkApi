@@ -31,10 +31,14 @@
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="ClientApp\src\app\form-modal\form-modal.component.ts" />
+    <None Remove="ClientApp\src\app\friend\friend-request.component.ts" />
     <None Remove="ClientApp\src\app\message\message.component.ts" />
+    <None Remove="ClientApp\src\app\models\friend-request.ts" />
     <None Remove="ClientApp\src\app\models\message.ts" />
     <None Remove="ClientApp\src\app\models\post.ts" />
     <None Remove="ClientApp\src\app\models\users.ts" />
+    <None Remove="ClientApp\src\app\pop-up.message\pop-up.message.component.ts" />
     <None Remove="ClientApp\src\app\posts\post.component.ts" />
     <None Remove="ClientApp\src\app\services\friendRequest.service.ts" />
     <None Remove="ClientApp\src\app\services\message.service.ts" />
@@ -47,10 +51,14 @@
     <ProjectReference Include="..\SocialNetwork.Logic\SocialNetwork.Logic.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\form-modal\form-modal.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\friend\friend-request.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\message\message.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\friend-request.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\message.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\post.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\users.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\pop-up.message\pop-up.message.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\posts\post.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\services\friendRequest.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\services\message.service.ts" />

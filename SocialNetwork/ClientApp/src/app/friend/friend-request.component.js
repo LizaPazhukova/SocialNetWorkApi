@@ -10,21 +10,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@angular/core");
-const user_service_1 = require("../services/user.service");
-let UserProfileComponent = class UserProfileComponent {
-    constructor(userService) {
-        this.userService = userService;
+const friendRequest_service_1 = require("../services/friendRequest.service");
+let FriendRequestComponent = class FriendRequestComponent {
+    constructor(friendRequestService) {
+        this.friendRequestService = friendRequestService;
     }
     ngOnInit() {
-        this.userService.getCurrentUser().subscribe(result => this.user = result);
+        this.friendRequestService.getRequests().subscribe(result => {
+            this.requests = result;
+        }, error => console.error(error));
+        ;
     }
 };
-UserProfileComponent = __decorate([
+FriendRequestComponent = __decorate([
     core_1.Component({
-        selector: 'app-user-profile',
-        templateUrl: './user-profile.component.html'
+        selector: 'app-requests',
+        templateUrl: './friend-request.component.html'
     }),
-    __metadata("design:paramtypes", [user_service_1.UserService])
-], UserProfileComponent);
-exports.UserProfileComponent = UserProfileComponent;
-//# sourceMappingURL=user-profile.component.js.map
+    __metadata("design:paramtypes", [friendRequest_service_1.FriendRequestService])
+], FriendRequestComponent);
+exports.FriendRequestComponent = FriendRequestComponent;
+//# sourceMappingURL=friend-request.component.js.map

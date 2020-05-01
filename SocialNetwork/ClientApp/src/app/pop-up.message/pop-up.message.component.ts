@@ -3,10 +3,10 @@ import { Message } from '../models/message';
 import { MessageService } from '../services/message.service';
 
 @Component({
-  selector: 'app-messages',
-  templateUrl: './message.component.html'
+  selector: 'app-pop-up-messages',
+  templateUrl: './pop-up.message.component.html'
 })
-export class MessageComponent implements OnInit {
+export class PopUpMessageComponent implements OnInit {
   public messages: Message[];
 
   constructor(private messageService: MessageService) {
@@ -17,5 +17,5 @@ export class MessageComponent implements OnInit {
       this.messages = result;
     }, error => console.error(error));;
   }
-  
+
 }

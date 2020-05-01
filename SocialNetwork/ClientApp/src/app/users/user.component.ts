@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FriendRequestService } from 'src/app/services/friendRequest.service';
-import { User } from 'src/app/models/users';
-import { UserService } from 'src/app/services/user.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
+import { FormModalComponent } from '../form-modal/form-modal.component';
+import { FriendRequestService } from '../services/friendRequest.service';
+import { User } from '../models/users';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-users',
@@ -10,7 +13,7 @@ import { UserService } from 'src/app/services/user.service';
 export class UserComponent implements OnInit {
   public users: User[];
 
-  constructor(private FriendRequestService: FriendRequestService, private UserService: UserService) {
+  constructor(private FriendRequestService: FriendRequestService, private UserService: UserService, private modalService: NgbModal) {
     
   }
   ngOnInit() {
@@ -23,6 +26,17 @@ export class UserComponent implements OnInit {
     this.FriendRequestService.sendFriendRequest(id);
   
   }
+  openFormModal(id: number) {
+    const modalRef = this.modalService.open(FormModalComponent);
+    modalRef.componentInstance.id = id;
+
+    modalRef.result.then((result) => {
+      console.log(result);
+    }).catch((error) => {
+      console.log(error);
+    });
+  }
+  
 }
 
 

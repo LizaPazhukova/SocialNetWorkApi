@@ -33,6 +33,7 @@ namespace SocialNetwork.Controllers
             _friendRequestService.SendRequest(id, fromUserId);
             return Ok();
         }
+        [HttpGet("requests")]
         public IEnumerable<Request> Requests()
         {
             var currentUserId = Convert.ToInt32(User.FindFirstValue(ClaimTypes.NameIdentifier));
@@ -40,16 +41,19 @@ namespace SocialNetwork.Controllers
 
             return requests;
         }
+        [HttpGet("acceptRequest/{id}")]
         public IActionResult AcceptRequest(int id)
         {
             _friendRequestService.AcceptRequest(id);
-            return RedirectToAction("Requests", "FriendRequest");
+            return Ok();
+           // return RedirectToAction("Requests", "FriendRequest");
         }
         public IActionResult RegectRequest(int id)
         {
             _friendRequestService.RejectRequest(id);
             return RedirectToAction("Requests", "FriendRequest");
         }
+        [HttpGet("friends")]
         public IEnumerable<AppUser> Friends()
         {
             var currentUserId = Convert.ToInt32(User.FindFirstValue(ClaimTypes.NameIdentifier));

@@ -2,10 +2,10 @@ import { Component, Inject} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { PostService } from 'src/app/services/post.service';
-import { UserService } from 'src/app/services/user.service';
-import { User } from 'src/app/models/users';
-import { Post } from 'src/app/models/post';
+import { PostService } from '../services/post.service';
+import { UserService } from '../services/user.service';
+import { User } from '../models/users';
+import { Post } from '../models/post';
 
 @Component({
   selector: 'app-post',

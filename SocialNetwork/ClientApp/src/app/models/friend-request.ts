@@ -1,7 +1,6 @@
-export class Message {
+export class FriendRequest {
   Id: number;
   fromUserId: number;
   toUserId: number;
-  body: string;
   Date: number;
 }

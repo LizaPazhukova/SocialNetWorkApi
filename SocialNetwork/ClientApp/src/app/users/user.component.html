@@ -15,7 +15,11 @@
     <tr *ngFor="let user of users">
       <td>{{ user.firstName }}</td>
       <td>{{ user.lastName }}</td>
+      <td><img class="rounded-circle" width="45" height="45" src="data:image/png;base64,{{user.avatar}}"></td>
       <td><button (click)="sendFriendRequest(user.id)">Send Request</button></td>
+      <td><button (click)="openFormModal(user.id)">Send Message</button></td>
     </tr>
+
   </tbody>
 </table>
+

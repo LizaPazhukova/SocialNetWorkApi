@@ -13,8 +13,9 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@angular/core");
+const core_2 = require("@angular/core");
 const http_1 = require("@angular/common/http");
-let MessageService = class MessageService {
+let FriendRequestService = class FriendRequestService {
     constructor(http, baseUrl) {
         this.http = http;
         this.baseUrl = baseUrl;
@@ -24,19 +25,23 @@ let MessageService = class MessageService {
             })
         };
     }
-    getMessages() {
-        return this.http.get(this.baseUrl + 'api/message/messages');
+    sendFriendRequest(id) {
+        alert(id);
+        return this.http.get(this.baseUrl + 'api/friendRequest/sendRequest/' + id).subscribe();
     }
-    sendMessage(message) {
-        return this.http.post(this.baseUrl + 'api/message/send', message);
+    acceptRequest(id) {
+        return this.http.get(this.baseUrl + 'api/friendRequest/acceptRequest/' + id);
+    }
+    getRequests() {
+        return this.http.get(this.baseUrl + 'api/friendRequest/requests/');
     }
 };
-MessageService = __decorate([
+FriendRequestService = __decorate([
     core_1.Injectable({
-        providedIn: 'root'
+        providedIn: 'root',
     }),
-    __param(1, core_1.Inject('BASE_URL')),
+    __param(1, core_2.Inject('BASE_URL')),
     __metadata("design:paramtypes", [http_1.HttpClient, String])
-], MessageService);
-exports.MessageService = MessageService;
-//# sourceMappingURL=message.service.js.map
+], FriendRequestService);
+exports.FriendRequestService = FriendRequestService;
+//# sourceMappingURL=friendRequest.service.js.map

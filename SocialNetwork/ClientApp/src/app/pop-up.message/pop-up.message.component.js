@@ -10,21 +10,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@angular/core");
-const user_service_1 = require("../services/user.service");
-let UserProfileComponent = class UserProfileComponent {
-    constructor(userService) {
-        this.userService = userService;
+const message_service_1 = require("../services/message.service");
+let PopUpMessageComponent = class PopUpMessageComponent {
+    constructor(messageService) {
+        this.messageService = messageService;
     }
     ngOnInit() {
-        this.userService.getCurrentUser().subscribe(result => this.user = result);
+        this.messageService.getMessages().subscribe(result => {
+            this.messages = result;
+        }, error => console.error(error));
+        ;
     }
 };
-UserProfileComponent = __decorate([
+PopUpMessageComponent = __decorate([
     core_1.Component({
-        selector: 'app-user-profile',
-        templateUrl: './user-profile.component.html'
+        selector: 'app-pop-up-messages',
+        templateUrl: './pop-up.message.component.html'
     }),
-    __metadata("design:paramtypes", [user_service_1.UserService])
-], UserProfileComponent);
-exports.UserProfileComponent = UserProfileComponent;
-//# sourceMappingURL=user-profile.component.js.map
+    __metadata("design:paramtypes", [message_service_1.MessageService])
+], PopUpMessageComponent);
+exports.PopUpMessageComponent = PopUpMessageComponent;
+//# sourceMappingURL=pop-up.message.component.js.map

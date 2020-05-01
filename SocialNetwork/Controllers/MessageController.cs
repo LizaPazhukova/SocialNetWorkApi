@@ -21,19 +21,14 @@ namespace SocialNetwork.Controllers
             _messageService = messageService;
         }
 
-        //[HttpGet]
-        //public IActionResult Send(int id)
-        //{
-        //    return View();
-        //}
-
         [HttpPost("send")]
-        public IActionResult Send(int id, string messageText)
+        public IActionResult Send(Message message)
         {
             var fromUserId = Convert.ToInt32(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            _messageService.SendMessage(id, fromUserId, messageText);
-            return RedirectToAction("Index", "Home");
-            //return IActionResult<Message>(message)
+          
+            _messageService.SendMessage(message.ToUserId, fromUserId, message.Body);
+            return Ok();
+            
         }
 
         [HttpGet("messages")]
@@ -43,6 +38,7 @@ namespace SocialNetwork.Controllers
             IEnumerable<Message> messages = _messageService.GetUserMessages(currentUserId);
             return messages;
         }
+        [HttpGet("messagesWithOneUser")]
         public IEnumerable<Message> MessagesWithOneUser(int otherUserId, int currentUserId)
         {
             IEnumerable<Message> messages = _messageService.GetUserMessagesWithOneUser(otherUserId, currentUserId);
