@@ -10,24 +10,49 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@angular/core");
+const ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
 const friendRequest_service_1 = require("../services/friendRequest.service");
+const form_modal_component_1 = require("../form-modal/form-modal.component");
 let FriendRequestComponent = class FriendRequestComponent {
-    constructor(friendRequestService) {
+    constructor(friendRequestService, modalService) {
         this.friendRequestService = friendRequestService;
+        this.modalService = modalService;
     }
     ngOnInit() {
+        this.getRequests();
+        this.friendRequestService.getFriends().subscribe(result => {
+            this.friends = result;
+        }, error => console.error(error));
+    }
+    getRequests() {
         this.friendRequestService.getRequests().subscribe(result => {
             this.requests = result;
         }, error => console.error(error));
-        ;
+    }
+    acceptRequest(id) {
+        this.friendRequestService.acceptRequest(id).subscribe(() => this.getRequests());
+    }
+    rejectRequest(id) {
+        this.friendRequestService.rejectRequest(id).subscribe(() => this.getRequests());
+    }
+    openFormModal(id) {
+        const modalRef = this.modalService.open(form_modal_component_1.FormModalComponent);
+        modalRef.componentInstance.id = id;
+        modalRef.result.then((result) => {
+            console.log(result);
+        }).catch((error) => {
+            console.log(error);
+        });
     }
 };
 FriendRequestComponent = __decorate([
     core_1.Component({
         selector: 'app-requests',
-        templateUrl: './friend-request.component.html'
+        templateUrl: './friend-request.component.html',
+        styleUrls: ['./friend-request.component.css']
     }),
-    __metadata("design:paramtypes", [friendRequest_service_1.FriendRequestService])
+    __metadata("design:paramtypes", [friendRequest_service_1.FriendRequestService,
+        ng_bootstrap_1.NgbModal])
 ], FriendRequestComponent);
 exports.FriendRequestComponent = FriendRequestComponent;
 //# sourceMappingURL=friend-request.component.js.map

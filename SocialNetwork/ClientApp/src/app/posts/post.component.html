@@ -51,18 +51,19 @@
 </form>
 
 <div class="card gedf-card">
-  <div class="card-header" *ngFor="let p of posts">
+  <div class="card-header" *ngFor="let post of posts">
     <div class="d-flex justify-content-between align-items-center">
       <div class="d-flex justify-content-between align-items-center">
         <div class="mr-2">
           <img class="rounded-circle" width="45" height="45" src="data:image/png;base64,{{user.avatar}}">
         </div>
         <p class="card-text">
-          {{p.text}}
+          {{post.text}}
         </p>
       </div>
       <div>
-        <div class="dropdown">
+        <a class="nav-link active" data-toggle="tab" href="#likes" role="tab" aria-controls="likes" aria-selected="true" (click)=likePost(post.id)><i class="fa fa-gittip"></i> Like <span *ngIf="post.likes?.length>0">{{post.likes.length}}</span></a> 
+        <!--<div class="dropdown">
           <button class="btn btn-link dropdown-toggle" type="button" id="gedf-drop1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fa fa-ellipsis-h"></i>
           </button>
@@ -72,7 +73,7 @@
             <a class="dropdown-item" href="#">Hide</a>
             <a class="dropdown-item" href="#">Report</a>
           </div>
-        </div>
+        </div>-->
       </div>
     </div>
   </div>

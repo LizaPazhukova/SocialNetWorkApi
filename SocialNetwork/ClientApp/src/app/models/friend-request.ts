@@ -1,6 +1,9 @@
+import { User } from "./users";
+
 export class FriendRequest {
-  Id: number;
+  id: number;
   fromUserId: number;
   toUserId: number;
-  Date: number;
+  date: string;
+  appUser: User;
 }

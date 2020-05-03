@@ -1,7 +1,8 @@
-import { Data } from "@angular/router";
+import { Like } from "./like";
 
 export class Post {
   constructor(public text: string) { }
-  Id: number;
-  Date: number;
+  id: number;
+  date: number;
+  likes: Like[];
 }

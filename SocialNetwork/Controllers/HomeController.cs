@@ -66,11 +66,12 @@ namespace SocialNetwork.Controllers
             _postService.CreateComment(id, userId, text);
             return Ok();
         }
-        public IActionResult LikePost(int id)
+        [HttpPost("like")]
+        public IActionResult LikePost(Like like)
         {
             var userId = Convert.ToInt32(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            _postService.LikePost(userId, id);
-            return RedirectToAction("Index");
+            _postService.LikePost(userId, like.PostId);
+            return Ok();
         }
 
         //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -42,7 +42,7 @@ import { FriendRequestComponent } from './friend/friend-request.component';
     ApiAuthorizationModule,
     NgbModule.forRoot(),
     RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
+      { path: '', component: HomeComponent,  canActivate: [AuthorizeGuard]},
       { path: 'login', component: LoginComponent },
       { path: 'users', component: UserComponent, canActivate: [AuthorizeGuard] },
       { path: 'post', component: PostComponent, canActivate: [AuthorizeGuard] },

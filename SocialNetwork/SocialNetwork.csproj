@@ -35,6 +35,7 @@
     <None Remove="ClientApp\src\app\friend\friend-request.component.ts" />
     <None Remove="ClientApp\src\app\message\message.component.ts" />
     <None Remove="ClientApp\src\app\models\friend-request.ts" />
+    <None Remove="ClientApp\src\app\models\like.ts" />
     <None Remove="ClientApp\src\app\models\message.ts" />
     <None Remove="ClientApp\src\app\models\post.ts" />
     <None Remove="ClientApp\src\app\models\users.ts" />
@@ -55,6 +56,7 @@
     <TypeScriptCompile Include="ClientApp\src\app\friend\friend-request.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\message\message.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\friend-request.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\like.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\message.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\post.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\users.ts" />

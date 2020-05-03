@@ -21,11 +21,6 @@ namespace SocialNetwork.Controllers
             _friendRequestService = friendRequestService;
         }
 
-        //[HttpGet]
-        //public IActionResult GetRequest(int id)
-        //{
-        //    return View();
-        //}
         [HttpGet("sendRequest/{id}")]
         public IActionResult SendRequest(int id)
         {
@@ -48,10 +43,11 @@ namespace SocialNetwork.Controllers
             return Ok();
            // return RedirectToAction("Requests", "FriendRequest");
         }
-        public IActionResult RegectRequest(int id)
+        [HttpGet("rejectRequest/{id}")]
+        public IActionResult RejectRequest(int id)
         {
             _friendRequestService.RejectRequest(id);
-            return RedirectToAction("Requests", "FriendRequest");
+            return Ok();
         }
         [HttpGet("friends")]
         public IEnumerable<AppUser> Friends()

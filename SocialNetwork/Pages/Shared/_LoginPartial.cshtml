@@ -18,12 +18,12 @@
             <li class="nav-item">
                 <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity.Name!</a>
             </li>
-            <li>
+            @*<li>
                 @if (Model.Input.GetAvatar != null)
                 {
                     <img style='width:60px; height:60px;border-radius: 100px;' src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Input.GetAvatar))" />
                 }
-            </li>
+            </li>*@
             <li class="nav-item">
                 <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="/">
                     <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>

@@ -13,6 +13,7 @@ const core_1 = require("@angular/core");
 const post_service_1 = require("../services/post.service");
 const user_service_1 = require("../services/user.service");
 const post_1 = require("../models/post");
+const like_1 = require("../models/like");
 let PostComponent = class PostComponent {
     constructor(postService, userService) {
         this.postService = postService;
@@ -21,17 +22,23 @@ let PostComponent = class PostComponent {
     }
     ngOnInit() {
         this.postService.getPosts().subscribe(result => {
-            this.posts = result.sort(x => x.Date);
+            this.posts = result.sort(x => x.date);
         }, error => console.error(error));
-        ;
         this.userService.getCurrentUser().subscribe(result => {
             this.user = result;
         }, error => console.error(error));
-        ;
+        console.log(this.posts);
     }
     createPost() {
         this.postService.createPost(new post_1.Post(this.text)).subscribe(result => this.posts.unshift(result));
         this.text = '';
+    }
+    likePost(postId) {
+        var like = new like_1.Like();
+        like.postId = postId;
+        this.postService.likePost(like).subscribe(() => this.postService.getPosts().subscribe(result => {
+            this.posts = result.sort(x => x.date);
+        }, error => console.error(error)));
     }
 };
 PostComponent = __decorate([

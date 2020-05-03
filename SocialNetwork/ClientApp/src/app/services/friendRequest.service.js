@@ -26,7 +26,6 @@ let FriendRequestService = class FriendRequestService {
         };
     }
     sendFriendRequest(id) {
-        alert(id);
         return this.http.get(this.baseUrl + 'api/friendRequest/sendRequest/' + id).subscribe();
     }
     acceptRequest(id) {
@@ -34,6 +33,12 @@ let FriendRequestService = class FriendRequestService {
     }
     getRequests() {
         return this.http.get(this.baseUrl + 'api/friendRequest/requests/');
+    }
+    rejectRequest(id) {
+        return this.http.get(this.baseUrl + 'api/friendRequest/rejectRequest/' + id);
+    }
+    getFriends() {
+        return this.http.get(this.baseUrl + 'api/friendRequest/friends/');
     }
 };
 FriendRequestService = __decorate([

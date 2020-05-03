@@ -1,19 +1,58 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <title></title>
+  <meta charset="utf-8" />
+  <title></title>
 </head>
 <body>
-  <table>
-    <tbody>
-      <tr *ngFor="let request of requests">
-        <td>{{ request.toUserId }}</td>
-        <td>{{ request.Date }}</td>
+  <div id="fb" *ngFor="let request of requests">
+    <p>
+      <b> Friend Requests </b>
+    </p>
+    <img src="data:image/png;base64,{{request.appUser.avatar}}" class="rounded-circle" width="85" height="85" alt="Avatar">
+    <p id="info"><b>  {{ request.appUser.fullName }} </b> <br> </p>
+    <div id="button-block">
+      <div id="confirm"> <button class="button" (click)=acceptRequest(request.id)>Confirm</button></div>
+      <div id="delete"> <button class="button" (click)="rejectRequest(request.id)">Delete Request</button></div>
+    </div>
+  </div>
+  <!--friends-->
+  <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="friends">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Surname</th>
       </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let friend of friends">
+        <td>{{ friend.firstName }}</td>
+        <td>{{ friend.lastName }}</td>
+        <td><img class="rounded-circle" width="45" height="45" src="data:image/png;base64,{{friend.avatar}}"></td>
+        <td><button (click)="openFormModal(friend.id)">Send Message</button></td>
+      </tr>
+
     </tbody>
   </table>
-  
-  
+
+  <!--div *ngFor="let request of requests">
+    <img src="data:image/png;base64,{{request.appUser.avatar}}" style="width:5%" alt="Avatar" />
+    {{ request.appUser.fullName }}
+    <button class="w3-button w3-green" title="Accept"><i class="fa fa-check"></i></button>
+    <button class="w3-button w3-red" title="Decline"><i class="fa fa-remove"></i></button>
+  </div>-->
+  <!--<table>
+    <tbody>
+      <tr *ngFor="let request of requests">
+        <td>
+          <img src="data:image/png;base64,{{request.appUser.avatar}}" style="width:10%" alt="Avatar" />
+        </td>
+        <td> {{ request.appUser.fullName }}  </td>
+        <td><button class="w3-button w3-block w3-green w3-section" title="Accept"><i class="fa fa-check"></i></button></td>
+      </tr>
+    </tbody>
+  </table>-->
+
+
 </body>
 </html>
