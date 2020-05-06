@@ -25,4 +25,7 @@ export class MessageService {
   sendMessage(message: Message): Observable<Message> {
     return this.http.post<Message>(this.baseUrl + 'api/message/send', message);
   }
+  getSelectedUserMessages(fromUserId: number, toUserId: number): Observable<Message[]> {
+    return this.http.get<Message[]>(this.baseUrl + 'api/message/messagesWithOneUser/'+fromUserId+'/'+toUserId);
+  }
 }

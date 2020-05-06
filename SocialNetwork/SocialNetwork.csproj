@@ -39,7 +39,6 @@
     <None Remove="ClientApp\src\app\models\message.ts" />
     <None Remove="ClientApp\src\app\models\post.ts" />
     <None Remove="ClientApp\src\app\models\users.ts" />
-    <None Remove="ClientApp\src\app\pop-up.message\pop-up.message.component.ts" />
     <None Remove="ClientApp\src\app\posts\post.component.ts" />
     <None Remove="ClientApp\src\app\services\friendRequest.service.ts" />
     <None Remove="ClientApp\src\app\services\message.service.ts" />
@@ -60,7 +59,6 @@
     <TypeScriptCompile Include="ClientApp\src\app\models\message.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\post.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\users.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\pop-up.message\pop-up.message.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\posts\post.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\services\friendRequest.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\services\message.service.ts" />

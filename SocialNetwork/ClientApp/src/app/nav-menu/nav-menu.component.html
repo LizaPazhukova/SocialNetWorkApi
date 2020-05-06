@@ -22,7 +22,7 @@
         <app-login-menu></app-login-menu>
         <ul class="navbar-nav flex-grow" *ngIf="isAuthenticated | async">
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/requests']">Friends</a>
+            <a class="nav-link text-dark" [routerLink]="['/friends']">Friends</a>
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link text-dark" [routerLink]="['/users']">Users</a>

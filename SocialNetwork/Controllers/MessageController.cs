@@ -38,10 +38,11 @@ namespace SocialNetwork.Controllers
             IEnumerable<Message> messages = _messageService.GetUserMessages(currentUserId);
             return messages;
         }
-        [HttpGet("messagesWithOneUser")]
-        public IEnumerable<Message> MessagesWithOneUser(int otherUserId, int currentUserId)
+        [HttpGet("messagesWithOneUser/{fromUserId}/{toUserId}")]
+        public IEnumerable<Message> MessagesWithOneUser(int fromUserId, int toUserId)
         {
-            IEnumerable<Message> messages = _messageService.GetUserMessagesWithOneUser(otherUserId, currentUserId);
+            
+            IEnumerable<Message> messages = _messageService.GetUserMessagesWithOneUser(fromUserId, toUserId);
             return messages;
         }
     }

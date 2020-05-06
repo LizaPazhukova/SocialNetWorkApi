@@ -28,7 +28,8 @@
       <tr *ngFor="let friend of friends">
         <td>{{ friend.firstName }}</td>
         <td>{{ friend.lastName }}</td>
-        <td><img class="rounded-circle" width="45" height="45" src="data:image/png;base64,{{friend.avatar}}"></td>
+        <td *ngIf="friend.avatar"><img class="rounded-circle" width="45" height="45" src="data:image/png;base64,{{friend.avatar}}"></td>
+        <td *ngIf="!friend.avatar"><img src="https://www.dietolog4you.com/images/avatar.jpeg" class="rounded-circle" width="45" height="45"></td>
         <td><button (click)="openFormModal(friend.id)">Send Message</button></td>
       </tr>
 

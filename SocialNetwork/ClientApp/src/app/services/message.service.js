@@ -30,6 +30,9 @@ let MessageService = class MessageService {
     sendMessage(message) {
         return this.http.post(this.baseUrl + 'api/message/send', message);
     }
+    getSelectedUserMessages(fromUserId, toUserId) {
+        return this.http.get(this.baseUrl + 'api/message/messagesWithOneUser/' + fromUserId + '/' + toUserId);
+    }
 };
 MessageService = __decorate([
     core_1.Injectable({

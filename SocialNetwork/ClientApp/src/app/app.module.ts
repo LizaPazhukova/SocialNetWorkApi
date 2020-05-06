@@ -19,7 +19,6 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { MessageComponent } from './message/message.component';
 import { LoginComponent } from 'src/api-authorization/login/login.component';
 import { FormModalComponent } from './form-modal/form-modal.component';
-import { FriendRequest } from './models/friend-request';
 import { FriendRequestComponent } from './friend/friend-request.component';
 
 @NgModule({
@@ -47,7 +46,7 @@ import { FriendRequestComponent } from './friend/friend-request.component';
       { path: 'users', component: UserComponent, canActivate: [AuthorizeGuard] },
       { path: 'post', component: PostComponent, canActivate: [AuthorizeGuard] },
       { path: 'messages', component: MessageComponent, canActivate: [AuthorizeGuard] },
-      { path: 'requests', component: FriendRequestComponent, canActivate: [AuthorizeGuard] },
+      { path: 'friends', component: FriendRequestComponent, canActivate: [AuthorizeGuard] },
     ])
   ],
   providers: [
