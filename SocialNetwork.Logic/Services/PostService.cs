@@ -15,9 +15,9 @@ namespace SocialNetwork.Logic.Services
         {
            _unitOfWork = unitOfWork;
         }
-        public IEnumerable<Post> GetPosts()
+        public IEnumerable<Post> GetPosts(int userId)
         {
-            return _unitOfWork.Posts.GetAll(x => x.Likes, x=>x.AppUser).OrderByDescending(x=>x.Date);
+            return _unitOfWork.Posts.GetAll(x => x.Likes, x=>x.AppUser).Where(i=>i.AppUserId==userId).OrderByDescending(x=>x.Date);
         }
         public void Create(int userId, string text)
         {

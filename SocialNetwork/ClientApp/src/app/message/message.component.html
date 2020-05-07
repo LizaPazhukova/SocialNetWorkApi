@@ -13,35 +13,27 @@
             <div class="recent_heading">
               <h4>Recent</h4>
             </div>
-            <div class="srch_bar">
-              <div class="stylish-input-group">
-                <input type="text" class="search-bar" placeholder="Search">
-                <span class="input-group-addon">
-                  <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
-                </span>
-              </div>
-            </div>
           </div>
           <div class="inbox_chat">
             <div class="chat_list" *ngFor="let message of messages" (click)="getSelectedUserMessages(message.fromUserId, message.toUserId)">
               <div class="chat_people">
-                <div class="chat_img" *ngIf="message.appUser.avatar"> <img class="rounded-circle" width="45" height="45" src="data:image/png;base64,{{message.appUser.avatar}}"> </div>
-                <div class="chat_img" *ngIf="!message.appUser.avatar"> <img src="https://www.dietolog4you.com/images/avatar.jpeg" class="rounded-circle" width="45" height="45"> </div>
-                  <div class="chat_ib">
-                    <h5>{{message.appUser.fullName}} <span class="chat_date">{{message.date | date}}</span></h5>
-                    <p>
-                      {{message.body}}
-                    </p>
-                  </div>
+                <div class="chat_img" *ngIf="message.fromUserId !== user.id"> <img class="rounded-circle" width="45" height="45" src="data:image/png;base64,{{message.fromUser.avatar}}"> </div>
+                <div class="chat_img" *ngIf="message.toUserId !== user.id  || message.toUserId === message.fromUserId"> <img class="rounded-circle" width="45" height="45" src="data:image/png;base64,{{message.toUser.avatar}}"> </div>
+                <div class="chat_ib">
+                  <h5 *ngIf="message.fromUserId !== user.id">{{message.fromUser.fullName}} <span class="chat_date">{{message.date | date}}</span></h5>
+                  <h5 *ngIf="message.toUserId !== user.id || message.toUserId === message.fromUserId">{{message.toUser.fullName}} <span class="chat_date">{{message.date | date}}</span></h5>
+                  <p>
+                    {{message.body}}
+                  </p>
                 </div>
+              </div>
             </div>
           </div>
         </div>
         <div class="mesgs" >
           <div class="msg_history" >
             <div *ngFor="let mes of selectedUserMessages" class="incoming_msg">
-              <div class="incoming_msg_img" *ngIf="user.id===mes.toUserId && mes.appUser.avatar"> <img class="rounded-circle" width="45" height="45" src="data:image/png;base64,{{mes.appUser.avatar}}"> </div>
-              <div class="incoming_msg_img" *ngIf="user.id===mes.toUserId && !mes.appUser.avatar"> <img src="https://www.dietolog4you.com/images/avatar.jpeg" class="rounded-circle" width="45" height="45"> </div>
+              <div class="incoming_msg_img" *ngIf="user.id===mes.toUserId"> <img class="rounded-circle" width="45" height="45" src="data:image/png;base64,{{mes.fromUser.avatar}}"> </div>
               <div class="received_msg">
                 <div [ngClass]="{'received_withd_msg':user.id===mes.toUserId, 'sent_msg':user.id===mes.fromUserId}">
                   <p>

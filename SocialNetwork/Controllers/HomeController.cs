@@ -27,7 +27,8 @@ namespace SocialNetwork.Controllers
         [HttpGet("posts")]
         public IEnumerable<Post> Get()
         {
-            IEnumerable<Post> posts = _postService.GetPosts();
+            int userId = Convert.ToInt32(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            IEnumerable<Post> posts = _postService.GetPosts(userId);
 
             return posts;
         }

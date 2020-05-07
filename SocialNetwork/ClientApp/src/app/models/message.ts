@@ -6,5 +6,6 @@ export class Message {
   toUserId: number;
   body: string;
   Date: number;
-  appUser: User;
+  fromUser: User;
+  toUser: User;
 }

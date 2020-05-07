@@ -8,7 +8,7 @@ namespace SocialNetwork.Logic.Interfaces
     public interface IPostService
     {
         void Create(int userId, string text);
-        IEnumerable<Post> GetPosts();
+        IEnumerable<Post> GetPosts(int userId);
         void CreateComment(int id, int userId, string text);
         void LikePost(int userId, int postId);
     }

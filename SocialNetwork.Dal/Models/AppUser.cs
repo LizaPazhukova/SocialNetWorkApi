@@ -20,7 +20,7 @@ namespace SocialNetwork.Dal.Models
 
         public List<Post> Posts { get; set; }
         public List<Request> Requests { get; set; }
-        [InverseProperty("AppUser")]
+        [InverseProperty("FromUser")]
         public List<Message> Messages { get; set; }
         public List<AppUser> Friends { get; set; } = new List<AppUser>();
         public List<Like> Likes { get; set; }

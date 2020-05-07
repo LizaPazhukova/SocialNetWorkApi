@@ -17,7 +17,7 @@ namespace SocialNetwork.Logic.Services
         }
         public IEnumerable<Message> GetUserMessages(int currentUserId)
         {
-            return _unitOfWork.Messages.GetAll(x => x.AppUser).AsEnumerable()
+            return _unitOfWork.Messages.GetAll(x => x.FromUser).AsEnumerable()
                                      .Where(x => x.ToUserId == currentUserId || x.FromUserId == currentUserId)
                                      .GroupBy(m => new
                                      {
@@ -42,16 +42,7 @@ namespace SocialNetwork.Logic.Services
         }
         public IEnumerable<Message> GetUserMessagesWithOneUser(int fromUserId, int toUserId)
         {
-            //return _unitOfWork.Messages.GetAll(x => x.AppUser).AsEnumerable()
-            //                         .Where(x => x.ToUserId == currentUserId && x.FromUserId == otherUserId || x.ToUserId == otherUserId && x.FromUserId == currentUserId)
-            //                         .GroupBy(m => new
-            //                         {
-            //                             MinId = m.FromUserId <= m.ToUserId ? m.FromUserId : m.ToUserId,
-            //                             MaxId = m.FromUserId > m.ToUserId ? m.FromUserId : m.ToUserId
-            //                         })
-            //                         .Select(gm => gm.OrderByDescending(m => m.Date)
-            //                         .FirstOrDefault());
-            return _unitOfWork.Messages.GetAll(x => x.AppUser).Where(x => x.ToUserId == toUserId && x.FromUserId == fromUserId || x.ToUserId == fromUserId && x.FromUserId == toUserId).ToList();
+            return _unitOfWork.Messages.GetAll(x => x.FromUser).Where(x => x.ToUserId == toUserId && x.FromUserId == fromUserId || x.ToUserId == fromUserId && x.FromUserId == toUserId).ToList();
         }
     }
 }

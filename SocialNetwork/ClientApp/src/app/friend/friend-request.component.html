@@ -28,32 +28,10 @@
       <tr *ngFor="let friend of friends">
         <td>{{ friend.firstName }}</td>
         <td>{{ friend.lastName }}</td>
-        <td *ngIf="friend.avatar"><img class="rounded-circle" width="45" height="45" src="data:image/png;base64,{{friend.avatar}}"></td>
-        <td *ngIf="!friend.avatar"><img src="https://www.dietolog4you.com/images/avatar.jpeg" class="rounded-circle" width="45" height="45"></td>
+        <td><img class="rounded-circle" width="45" height="45" src="data:image/png;base64,{{friend.avatar}}"></td>
         <td><button (click)="openFormModal(friend.id)">Send Message</button></td>
       </tr>
-
     </tbody>
   </table>
-
-  <!--div *ngFor="let request of requests">
-    <img src="data:image/png;base64,{{request.appUser.avatar}}" style="width:5%" alt="Avatar" />
-    {{ request.appUser.fullName }}
-    <button class="w3-button w3-green" title="Accept"><i class="fa fa-check"></i></button>
-    <button class="w3-button w3-red" title="Decline"><i class="fa fa-remove"></i></button>
-  </div>-->
-  <!--<table>
-    <tbody>
-      <tr *ngFor="let request of requests">
-        <td>
-          <img src="data:image/png;base64,{{request.appUser.avatar}}" style="width:10%" alt="Avatar" />
-        </td>
-        <td> {{ request.appUser.fullName }}  </td>
-        <td><button class="w3-button w3-block w3-green w3-section" title="Accept"><i class="fa fa-check"></i></button></td>
-      </tr>
-    </tbody>
-  </table>-->
-
-
 </body>
 </html>

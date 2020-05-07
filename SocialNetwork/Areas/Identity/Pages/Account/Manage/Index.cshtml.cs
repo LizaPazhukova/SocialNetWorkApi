@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using SocialNetwork.Dal.Models;
+using System.Drawing;
+
 
 namespace SocialNetwork.Areas.Identity.Pages.Account.Manage
 {
@@ -103,6 +105,20 @@ namespace SocialNetwork.Areas.Identity.Pages.Account.Manage
                     imageData = binaryReader.ReadBytes((int)Input.Avatar.Length);
                 }
                 
+                user.Avatar = imageData;
+            }
+            if (Input.Avatar == null)
+            {
+                byte[] imageData = null;
+
+                Image img = Image.FromFile(@"C:\avatar.jpeg");
+                
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    img.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                    imageData = ms.ToArray();
+                }
+
                 user.Avatar = imageData;
             }
 

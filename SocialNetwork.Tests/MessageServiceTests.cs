@@ -15,7 +15,7 @@ namespace SocialNetwork.Tests
         {
             // Arrange
             var mock = new Mock<IUnitOfWork>();
-            mock.Setup(repo => repo.Messages.GetAll(x =>x.AppUser)).Returns(GetTestMessages());
+            mock.Setup(repo => repo.Messages.GetAll(x =>x.FromUser)).Returns(GetTestMessages());
             var messageService = new MessageService(mock.Object);
 
             // Act
@@ -54,7 +54,7 @@ namespace SocialNetwork.Tests
         {
             // Arrange
             var mock = new Mock<IUnitOfWork>();
-            mock.Setup(repo => repo.Messages.GetAll(x => x.AppUser)).Returns(GetTestMessages());
+            mock.Setup(repo => repo.Messages.GetAll(x => x.FromUser)).Returns(GetTestMessages());
             var messageService = new MessageService(mock.Object);
 
             // Act

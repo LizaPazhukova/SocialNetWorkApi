@@ -11,7 +11,9 @@ namespace SocialNetwork.Dal.Models
         public string Body { get; set; }
         public DateTime Date { get; set; }
         [ForeignKey ("FromUserId")]
-        public AppUser AppUser { get; set; }
+        public AppUser FromUser { get; set; }
+        [ForeignKey("ToUserId")]
+        public AppUser ToUser { get; set; }
 
     }
 }
