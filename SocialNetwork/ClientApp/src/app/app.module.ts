@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 
 
@@ -39,6 +40,7 @@ import { FriendRequestComponent } from './friend/friend-request.component';
     FormsModule,
     ReactiveFormsModule,
     ApiAuthorizationModule,
+    Ng2SearchPipeModule,
     NgbModule.forRoot(),
     RouterModule.forRoot([
       { path: '', component: HomeComponent,  canActivate: [AuthorizeGuard]},

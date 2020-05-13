@@ -17,7 +17,10 @@ namespace SocialNetwork.Dal.Models
         public string LastName { get; set; }
 
         public string FullName { get { return $"{FirstName} {LastName}"; } }
-
+        public string Phone { get; set; }
+        public string City { get; set; }
+        public DateTime? BirthDate { get; set; }
+        public Gender? Gender { get; set; }
         public List<Post> Posts { get; set; }
         public List<Request> Requests { get; set; }
         [InverseProperty("FromUser")]
@@ -26,5 +29,10 @@ namespace SocialNetwork.Dal.Models
         public List<Like> Likes { get; set; }
         public List<Comment> Comments { get; set; }
         public byte[] Avatar { get; set; }
+    }
+    public enum Gender
+    {
+        Male,
+        Female
     }
 }

@@ -40,7 +40,11 @@ namespace SocialNetwork.Areas.Identity.Pages.Account.Manage
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
-
+            public string City { get; set; }
+            [EnumDataType(typeof(Gender))]
+            public Gender? Gender { get; set; }
+            [DataType(DataType.Date)]
+            public DateTime? BirthDate { get; set; } 
             public IFormFile Avatar { get; set; }
 
             public byte[] GetAvatar { get; set; }
@@ -50,13 +54,17 @@ namespace SocialNetwork.Areas.Identity.Pages.Account.Manage
         {
             var userName = await _userManager.GetUserNameAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+            
 
             Username = userName;
 
             Input = new InputModel
             {
                 PhoneNumber = phoneNumber,
-                GetAvatar = user.Avatar
+                GetAvatar = user.Avatar,
+                City = user.City,
+                Gender = user.Gender,
+                BirthDate = user.BirthDate
             };
         }
 
@@ -75,6 +83,7 @@ namespace SocialNetwork.Areas.Identity.Pages.Account.Manage
         public async Task<IActionResult> OnPostAsync()
         {
             var user = await _userManager.GetUserAsync(User);
+
             if (user == null)
             {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
@@ -96,6 +105,18 @@ namespace SocialNetwork.Areas.Identity.Pages.Account.Manage
                     throw new InvalidOperationException($"Unexpected error occurred setting phone number for user with ID '{userId}'.");
                 }
             }
+            if(Input.City != null)
+            {
+                user.City = Input.City;
+            }
+            if (Input.Gender != null)
+            {
+                user.Gender = Input.Gender;
+            }
+            if (Input.BirthDate != null)
+            {
+                user.BirthDate = Input.BirthDate;
+            }
             if (Input.Avatar != null)
             {
                 byte[] imageData = null;
@@ -107,7 +128,7 @@ namespace SocialNetwork.Areas.Identity.Pages.Account.Manage
                 
                 user.Avatar = imageData;
             }
-            if (Input.Avatar == null)
+            if (Input.Avatar == null && user.Avatar == null)
             {
                 byte[] imageData = null;
 

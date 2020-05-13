@@ -11,20 +11,43 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@angular/core");
 const ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
+const forms_1 = require("@angular/forms");
 const form_modal_component_1 = require("../form-modal/form-modal.component");
 const friendRequest_service_1 = require("../services/friendRequest.service");
 const user_service_1 = require("../services/user.service");
+const searchUser_1 = require("../models/searchUser");
 let UserComponent = class UserComponent {
-    constructor(FriendRequestService, UserService, modalService) {
+    constructor(FriendRequestService, UserService, modalService, formBuilder) {
         this.FriendRequestService = FriendRequestService;
         this.UserService = UserService;
         this.modalService = modalService;
+        this.formBuilder = formBuilder;
+        this.createForm();
     }
     ngOnInit() {
-        this.UserService.getUsers().subscribe(result => {
+        this.UserService.getUsers(this.searchUser).subscribe(result => {
             this.users = result;
         }, error => console.error(error));
-        ;
+    }
+    createForm() {
+        this.form = this.formBuilder.group({
+            name: '',
+            city: '',
+            gender: this.gender,
+            minAge: this.minAge,
+            maxAge: this.maxAge,
+        });
+    }
+    search() {
+        var user = new searchUser_1.searchUser;
+        user.name = this.form.value.name;
+        user.city = this.form.value.city;
+        user.gender = this.form.value.gender;
+        user.minAge = this.form.value.minAge;
+        user.maxAge = this.form.value.maxAge;
+        this.UserService.getUsers(user).subscribe(result => {
+            this.users = result;
+        }, error => console.error(error));
     }
     sendFriendRequest(id) {
         this.FriendRequestService.sendFriendRequest(id);
@@ -42,9 +65,13 @@ let UserComponent = class UserComponent {
 UserComponent = __decorate([
     core_1.Component({
         selector: 'app-users',
-        templateUrl: './user.component.html'
+        templateUrl: './user.component.html',
+        styleUrls: ['./user.component.css']
     }),
-    __metadata("design:paramtypes", [friendRequest_service_1.FriendRequestService, user_service_1.UserService, ng_bootstrap_1.NgbModal])
+    __metadata("design:paramtypes", [friendRequest_service_1.FriendRequestService,
+        user_service_1.UserService,
+        ng_bootstrap_1.NgbModal,
+        forms_1.FormBuilder])
 ], UserComponent);
 exports.UserComponent = UserComponent;
 //# sourceMappingURL=user.component.js.map

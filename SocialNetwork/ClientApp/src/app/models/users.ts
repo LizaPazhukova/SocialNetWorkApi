@@ -4,4 +4,12 @@ export class User {
   lastName: string;
   fullName: string;
   avatar: number[];
+  city: string;
+  birthDate: number;
+  gender: Gender;
+  phoneNumber: string;
+}
+export enum Gender {
+  Male,
+  Female
 }

@@ -2,6 +2,7 @@ import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from '../models/users';
 import { Observable } from 'rxjs';
+import { searchUser } from '../models/searchUser';
 
 
 @Injectable({
@@ -18,8 +19,8 @@ export class UserService {
     
   }
 
-  getUsers() : Observable<User[]>{
-    return this.http.get<User[]>(this.baseUrl + 'api/home/users');
+  getUsers(searchUser: searchUser): Observable<User[]>{
+    return this.http.post<User[]>(this.baseUrl + 'api/home/users', searchUser);
   }
   getCurrentUser(): Observable<User> {
     return this.http.get<User>(this.baseUrl + 'api/home/currentUser');

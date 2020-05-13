@@ -24,8 +24,8 @@ let UserService = class UserService {
             })
         };
     }
-    getUsers() {
-        return this.http.get(this.baseUrl + 'api/home/users');
+    getUsers(searchUser) {
+        return this.http.post(this.baseUrl + 'api/home/users', searchUser);
     }
     getCurrentUser() {
         return this.http.get(this.baseUrl + 'api/home/currentUser');

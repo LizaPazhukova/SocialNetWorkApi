@@ -10,10 +10,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@angular/core");
+const users_1 = require("../models/users");
 const user_service_1 = require("../services/user.service");
 let UserProfileComponent = class UserProfileComponent {
     constructor(userService) {
         this.userService = userService;
+        this.gender = users_1.Gender;
     }
     ngOnInit() {
         this.userService.getCurrentUser().subscribe(result => this.user = result);

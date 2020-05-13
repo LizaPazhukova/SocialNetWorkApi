@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../models/users';
+import { User, Gender } from '../models/users';
 import { UserService } from '../services/user.service';
 
 @Component({
@@ -8,7 +8,7 @@ import { UserService } from '../services/user.service';
 })
 export class UserProfileComponent implements OnInit {
   user: User;
-
+  public gender: typeof Gender = Gender;
   constructor(private userService: UserService) {}
   ngOnInit() {
     this.userService.getCurrentUser().subscribe(result => this.user = result);

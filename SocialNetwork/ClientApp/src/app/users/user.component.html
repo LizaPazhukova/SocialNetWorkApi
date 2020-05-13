@@ -1,25 +1,58 @@
-<h1 id="tableLabel">Users</h1>
 
-<p>This component demonstrates users in social network.</p>
+<form novalidate
+      [formGroup]="form">
+  <h3>User Filter</h3>
+  <div class="row">
+    <div class="col-md-3">
+      <input type="text"
+             formControlName="name"
+             class="form-control"
+             placeholder="Name" />
+    </div>
+    <div class="col-md-3">
+      <input type="text"
+             formControlName="city"
+             class="form-control"
+             placeholder="City" />
+    </div>
+    <div id="gender">
+      <select class="form-control"
+              formControlName="gender">
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+      </select>
+    </div>
+    <div id="age" >
+      <input type="text"
+             formControlName="minAge"
+             class="form-control"
+             placeholder="age from"/>
+    </div>
+    <div id="age" >
+      <input type="text"
+             formControlName="maxAge"
+             class="form-control"
+             placeholder="age to"/>
+    </div>
+    <div id="search">
+      <button class="btn btn-primary"
+              (click)="search()">
+        Search
+      </button>
+    </div>
+  </div>
+</form>
+<br />
+  <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="users">
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{ user.firstName }}</td>
+        <td>{{ user.lastName }}</td>
+        <td><img class="rounded-circle" width="45" height="45" src="data:image/png;base64,{{user.avatar}}"></td>
+        <td><button (click)="sendFriendRequest(user.id)">Send Request</button></td>
+        <td><button (click)="openFormModal(user.id)">Send Message</button></td>
+      </tr>
 
-<p *ngIf="!users"><em>Loading...</em></p>
-
-<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="users">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Surname</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let user of users">
-      <td>{{ user.firstName }}</td>
-      <td>{{ user.lastName }}</td>
-      <td><img class="rounded-circle" width="45" height="45" src="data:image/png;base64,{{user.avatar}}"></td>
-      <td><button (click)="sendFriendRequest(user.id)">Send Request</button></td>
-      <td><button (click)="openFormModal(user.id)">Send Message</button></td>
-    </tr>
-
-  </tbody>
-</table>
+    </tbody>
+  </table>
 

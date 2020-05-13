@@ -1,11 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-class User {
+class searchUser {
 }
-exports.User = User;
+exports.searchUser = searchUser;
 var Gender;
 (function (Gender) {
     Gender[Gender["Male"] = 0] = "Male";
     Gender[Gender["Female"] = 1] = "Female";
 })(Gender = exports.Gender || (exports.Gender = {}));
-//# sourceMappingURL=users.js.map
+//# sourceMappingURL=searchUsers.js.map

@@ -9,6 +9,7 @@ using SocialNetwork.Logic.Interfaces;
 using SocialNetwork.Dal.Models;
 using System.Security.Claims;
 using SocialNetwork.Inputs;
+using SocialNetwork.Logic.DTO;
 
 namespace SocialNetwork.Controllers
 {
@@ -39,10 +40,10 @@ namespace SocialNetwork.Controllers
             return _userService.GetUser(userId);
         }
 
-        [HttpGet("users")]
-        public IEnumerable<AppUser> Users()
+        [HttpPost("users")]
+        public IEnumerable<AppUser> Users(SearchUser searchUser)
         {
-            IEnumerable<AppUser> users = _userService.GetUsers();
+            IEnumerable<AppUser> users = _userService.GetUsers(searchUser);
             return users;
         }
         [HttpPost]

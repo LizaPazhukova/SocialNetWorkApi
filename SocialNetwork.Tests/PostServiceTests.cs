@@ -21,7 +21,7 @@ namespace SocialNetwork.Tests
             var postService = new PostService(mock.Object);
 
             // Act
-            var result = postService.GetPosts();
+            var result = postService.GetPosts(2);
 
             // Assert
             Assert.NotEmpty(result);
