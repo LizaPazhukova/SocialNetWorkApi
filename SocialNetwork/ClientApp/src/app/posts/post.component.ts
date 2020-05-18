@@ -7,6 +7,7 @@ import { UserService } from '../services/user.service';
 import { User } from '../models/users';
 import { Post } from '../models/post';
 import { Like } from '../models/like';
+import { Comment} from '../models/comment';
 
 @Component({
   selector: 'app-post',
@@ -18,7 +19,7 @@ export class PostComponent {
   public posts: Post[] = [];
   text: string;
   user: User;
- 
+  public isCollapsed : boolean[] = [];
 
   constructor( private postService: PostService, private userService: UserService) {
 
@@ -48,7 +49,12 @@ export class PostComponent {
     }, error => console.error(error)));
 
   }
-
+  createComment(postId: number, text: string) {
+    var comment = new Comment();
+    comment.postId = postId;
+    comment.text = text;
+    this.postService.createComment(comment).subscribe();
+  }
 }
 
 

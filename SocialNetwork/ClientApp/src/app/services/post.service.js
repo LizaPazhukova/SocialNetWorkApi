@@ -33,6 +33,9 @@ let PostService = class PostService {
     likePost(like) {
         return this.http.post(this.url + 'api/home/like/', like);
     }
+    createComment(comment) {
+        return this.http.post(this.url + 'api/home/comment', comment);
+    }
 };
 PostService = __decorate([
     core_1.Injectable({

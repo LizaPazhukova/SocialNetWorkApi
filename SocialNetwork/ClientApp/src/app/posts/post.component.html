@@ -1,103 +1,93 @@
-<form>
-  <div class="card gedf-card">
-    <div class="card-header">
-      <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
-        <li class="nav-item">
-          <a class="nav-link active" id="posts-tab" data-toggle="tab" href="#posts" role="tab" aria-controls="posts" aria-selected="true">
-            Create post
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" id="images-tab" data-toggle="tab" role="tab" aria-controls="images" aria-selected="false" href="#images">Images</a>
-        </li>
-      </ul>
-    </div>
-    <div class="card-body">
-      <div class="tab-content" id="myTabContent">
-        <div class="tab-pane fade show active" id="posts" role="tabpanel" aria-labelledby="posts-tab">
-          <div class="form-group">
-            <label class="sr-only" for="message">post</label>
-            <textarea class="form-control" id="message" rows="3" placeholder="What are you thinking?" name="text" [(ngModel)]="text"></textarea>
-          </div>
-        </div>
-        <div class="tab-pane fade" id="images" role="tabpanel" aria-labelledby="images-tab">
-          <div class="form-group">
-            <div class="custom-file">
-              <input type="file" class="custom-file-input" id="customFile">
-              <label class="custom-file-label" for="customFile">Upload image</label>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <title></title>
+</head>
+<body>
+  <form>
+    <div class="card gedf-card">
+      <div class="card-header">
+        <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="posts-tab" data-toggle="tab" href="#posts" role="tab" aria-controls="posts" aria-selected="true">
+              Create post
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="card-body">
+        <div class="tab-content" id="myTabContent">
+          <div class="tab-pane fade show active" id="posts" role="tabpanel" aria-labelledby="posts-tab">
+            <div class="form-group">
+              <label class="sr-only" for="message">post</label>
+              <textarea class="form-control" id="message" rows="3" placeholder="What are you thinking?" name="text" [(ngModel)]="text"></textarea>
             </div>
           </div>
-          <div class="py-4"></div>
         </div>
-      </div>
-      <div class="btn-toolbar justify-content-between">
-        <div class="btn-group">
-          <button type="submit" class="btn btn-primary" id="share" (click)="createPost()">share</button>
-        </div>
-        <div class="btn-group">
-          <button id="btnGroupDrop1" type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                  aria-expanded="false">
-            <i class="fa fa-globe"></i>
-          </button>
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="btnGroupDrop1">
-            <a class="dropdown-item" href="#"><i class="fa fa-globe"></i> Public</a>
-            <a class="dropdown-item" href="#"><i class="fa fa-users"></i> Friends</a>
-            <a class="dropdown-item" href="#"><i class="fa fa-user"></i> Just me</a>
+        <div class="btn-toolbar justify-content-between">
+          <div class="btn-group">
+            <button type="submit" class="btn btn-primary" id="share" (click)="createPost()">Share</button>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</form>
-
-<div class="card gedf-card">
-  <div class="card-header" *ngFor="let post of posts">
-    <div class="d-flex justify-content-between align-items-center">
-      <div class="d-flex justify-content-between align-items-center">
-        <div class="mr-2">
-          <img class="rounded-circle" width="45" height="45" src="data:image/png;base64,{{user.avatar}}">
+  </form>
+  <!--post-->
+  <div *ngFor="let post of posts; let i = index">
+    <br />
+    <div class="card gedf-card" >
+      <div class="card-header">
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="mr-2">
+              <img class="rounded-circle" width="45" height="45" src="data:image/png;base64,{{user.avatar}}">
+            </div>
+            <div class="ml-2">
+              <div class="h7 text-muted">{{user.fullName}}</div> <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i> {{post.date | date}}</div>
+            </div>
+          </div>
         </div>
+      </div>
+      <div class="card-body">
+        <a class="card-link" href="#">
+        </a>
         <p class="card-text">
           {{post.text}}
         </p>
       </div>
-      <div>
-        <a class="nav-link active" data-toggle="tab" href="#likes" role="tab" aria-controls="likes" aria-selected="true" (click)=likePost(post.id)><i class="fa fa-gittip"></i> Like <span *ngIf="post.likes?.length>0">{{post.likes.length}}</span></a> 
-        <!--<div class="dropdown">
-          <button class="btn btn-link dropdown-toggle" type="button" id="gedf-drop1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fa fa-ellipsis-h"></i>
-          </button>
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1">
-            <div class="h6 dropdown-header">Configuration</div>
-            <a class="dropdown-item" href="#">Save</a>
-            <a class="dropdown-item" href="#">Hide</a>
-            <a class="dropdown-item" href="#">Report</a>
+      <div class="card-footer">
+        <a href="#" class="card-link" (click)=likePost(post.id)><i class="fa fa-gittip"></i> Like <span *ngIf="post.likes?.length>0">{{post.likes.length}}</span></a>
+        <a href="#" class="card-link" (click)="isCollapsed[i] = !isCollapsed[i]" [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample"><i class="fa fa-comment"></i> Comment</a>
+      </div>
+      <div [ngbCollapse]="!isCollapsed[i]" id="collapseExample">
+        <div class="card-body" *ngFor="let comment of post.comments">
+          <div class="row">
+            <div class="col-md-2">
+              <img class="rounded-circle" width="45" height="45" src="data:image/png;base64,{{comment.appUser.avatar}}">
+              <p class="text-secondary">{{comment.date | date}}</p>
+            </div>
+            <div class="col-md-10">
+              <p><a href="#"><strong>{{comment.appUser.fullName}}</strong></a></p>
+              <p>{{comment.text}}</p>
+            </div>
           </div>
-        </div>-->
+        </div>
+        <input #text type="text" class="form-control" placeholder="Type your comment here" (keyup.enter)="createComment(post.id, text.value); text.value=''">
+        <!--<div class="card-text" *ngFor="let comment of post.comments">
+        <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i> {{comment.date | date}}</div>
+        <span>{{comment.appUser.fullName}}</span>
+        <p class="card-text">
+          {{comment.text}}
+        </p>
+      </div>
+      <input #text type="text" class="form-control" placeholder="Type your comment here" (keyup.enter)="createComment(post.id, text.value); text.value=''">-->
       </div>
     </div>
   </div>
- </div> 
-
-
-
-
-
-
-  <!--<div>Post</div>
-
-
-    <div class="form-group">
-      <label>Input post</label>
-      <input class="form-control" name="text" [(ngModel)]="text" />
-    </div>
-    <div class="form-group">
-      <button class="btn btn-default" (click)="createPost()">Create Post</button>
-    </div>
-
-
-  <tbody>
-    <tr *ngFor="let p of posts">
-      <td>{{p.text}}</td>
-    </tr>
-  </tbody>-->
+ </body>
+</html>

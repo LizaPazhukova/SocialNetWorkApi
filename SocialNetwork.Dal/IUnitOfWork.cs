@@ -12,6 +12,7 @@ namespace SocialNetwork.Dal
         IRepository<Post> Posts { get; }
         IRepository<Like> Likes { get; }  
         IRepository<Request> Requests { get; }
+        IRepository<Comment> Comments { get; }
         void Save();
     }
 }

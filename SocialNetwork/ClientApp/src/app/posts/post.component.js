@@ -14,11 +14,13 @@ const post_service_1 = require("../services/post.service");
 const user_service_1 = require("../services/user.service");
 const post_1 = require("../models/post");
 const like_1 = require("../models/like");
+const comment_1 = require("../models/comment");
 let PostComponent = class PostComponent {
     constructor(postService, userService) {
         this.postService = postService;
         this.userService = userService;
         this.posts = [];
+        this.isCollapsed = [];
     }
     ngOnInit() {
         this.postService.getPosts().subscribe(result => {
@@ -39,6 +41,12 @@ let PostComponent = class PostComponent {
         this.postService.likePost(like).subscribe(() => this.postService.getPosts().subscribe(result => {
             this.posts = result.sort(x => x.date);
         }, error => console.error(error)));
+    }
+    createComment(postId, text) {
+        var comment = new comment_1.Comment();
+        comment.postId = postId;
+        comment.text = text;
+        this.postService.createComment(comment).subscribe();
     }
 };
 PostComponent = __decorate([

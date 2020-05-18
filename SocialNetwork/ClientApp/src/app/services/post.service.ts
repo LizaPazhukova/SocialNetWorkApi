@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Post } from '../models/post';
 import { Observable } from 'rxjs';
 import { Like } from '../models/like';
-
+import { Comment } from '../models/comment';
 
 @Injectable({
   providedIn: 'root'
@@ -27,5 +27,8 @@ export class PostService {
   }
   likePost(like: Like): Observable<Like> {
     return this.http.post<Like>(this.url + 'api/home/like/', like);
+  }
+  createComment(comment: Comment): Observable<Comment> {
+    return this.http.post<Comment>(this.url + 'api/home/comment', comment);
   }
 }

@@ -17,7 +17,7 @@ namespace SocialNetwork.Logic.Services
         }
         public IEnumerable<Post> GetPosts(int userId)
         {
-            return _unitOfWork.Posts.GetAll(x => x.Likes, x=>x.AppUser).Where(i=>i.AppUserId==userId).OrderByDescending(x=>x.Date);
+            return _unitOfWork.Posts.GetAll(x => x.Likes, x=>x.AppUser, x=>x.Comments).Where(i=>i.AppUserId==userId).OrderByDescending(x=>x.Date);
         }
         public void Create(int userId, string text)
         {
@@ -33,14 +33,17 @@ namespace SocialNetwork.Logic.Services
         public void CreateComment(int id, int userId, string text)
         {
             var post = _unitOfWork.Posts.GetById(id);
-            post.Comments.Add(new Comment()
+            Comment comment = new Comment()
             {
                 Text = text,
                 AppUserId = userId,
                 Date = DateTime.Now,
                 PostId = id
-            });
+            };
+            _unitOfWork.Comments.Create(comment);
+            post.Comments.Add(comment);
             _unitOfWork.Posts.Update(post);
+            _unitOfWork.Save();
         }
         public void LikePost(int userId, int postId)
         {

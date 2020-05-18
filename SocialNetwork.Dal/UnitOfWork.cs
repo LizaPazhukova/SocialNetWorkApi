@@ -20,6 +20,7 @@ namespace SocialNetwork.Dal
         private IRepository<Post> _postsRepository;
         private IRepository<Request> _requestsRepository;
         private IRepository<Like> _likesRepository;
+        private IRepository<Comment> _commentsRepository;
 
         public IRepository<AppUser> Users
         {
@@ -59,6 +60,14 @@ namespace SocialNetwork.Dal
             {
                 return _likesRepository ??
                         (_likesRepository = new RepositoryBase<Like>(_context));
+            }
+        }
+        public IRepository<Comment> Comments
+        {
+            get
+            {
+                return _commentsRepository ??
+                        (_commentsRepository = new RepositoryBase<Comment>(_context));
             }
         }
 

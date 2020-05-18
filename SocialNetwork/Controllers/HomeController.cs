@@ -62,10 +62,10 @@ namespace SocialNetwork.Controllers
             return CreatedAtAction("Get", new { id = post.Id }, post);
         }
         [HttpPost("comment")]
-        public IActionResult CreateComment(int id, string text)
+        public IActionResult CreateComment(Comment comment)
         {
             var userId = Convert.ToInt32(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            _postService.CreateComment(id, userId, text);
+            _postService.CreateComment(comment.PostId, userId, comment.Text);
             return Ok();
         }
         [HttpPost("like")]
