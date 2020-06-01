@@ -19,8 +19,8 @@ export class PostService {
 
   }
 
-  getPosts(): Observable<Post[]> {
-    return this.http.get<Post[]>(this.url + 'api/home/posts');
+  getPosts(UserId: number): Observable<Post[]> {
+    return this.http.get<Post[]>(this.url + 'api/home/posts/'+UserId);
   }
   createPost(post: Post): Observable<Post> {
     return this.http.post<Post>(this.url + 'api/home/post/', post);

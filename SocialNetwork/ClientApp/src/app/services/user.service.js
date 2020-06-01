@@ -30,6 +30,9 @@ let UserService = class UserService {
     getCurrentUser() {
         return this.http.get(this.baseUrl + 'api/home/currentUser');
     }
+    getUser(id) {
+        return this.http.get(this.baseUrl + 'api/home/user/' + id);
+    }
 };
 UserService = __decorate([
     core_1.Injectable({

@@ -25,31 +25,35 @@ namespace SocialNetwork.Controllers
             _postService = postService;
         }
 
-        [HttpGet("posts")]
-        public IEnumerable<Post> Get()
+        [HttpGet("posts/{userId}")]
+        public IEnumerable<Post> Get(int userId)
         {
-            int userId = Convert.ToInt32(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            IEnumerable<Post> posts = _postService.GetPosts(userId);
+            IEnumerable<Post> posts = _postService.GetPosts(userId).ToList();
 
             return posts;
         }
         [HttpGet("currentUser")]
-        public AppUser GetCurrentUser()
+        public UserDTO GetCurrentUser()
         {
             int userId = Convert.ToInt32(User.FindFirstValue(ClaimTypes.NameIdentifier));
             return _userService.GetUser(userId);
         }
+        [HttpGet("user/{id}")]
+        public UserDTO GetUser(int id)
+        {
+            return _userService.GetUser(id);
+        }
 
         [HttpPost("users")]
-        public IEnumerable<AppUser> Users(SearchUser searchUser)
+        public IEnumerable<UserDTO> Users(SearchUser searchUser)
         {
-            IEnumerable<AppUser> users = _userService.GetUsers(searchUser);
+            IEnumerable<UserDTO> users = _userService.GetUsers(searchUser);
             return users;
         }
         [HttpPost]
-        public IEnumerable<AppUser> Search(string name)
+        public IEnumerable<UserDTO> Search(string name)
         {
-            IEnumerable<AppUser> users = _userService.SearchedUsers(name);
+            IEnumerable<UserDTO> users = _userService.SearchedUsers(name);
 
             return users;
         }

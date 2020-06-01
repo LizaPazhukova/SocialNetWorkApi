@@ -5,5 +5,6 @@ export class Comment {
   date: number;
   text: string;
   postId: number;
+  appUserId: number;
   appUser: User;
 }

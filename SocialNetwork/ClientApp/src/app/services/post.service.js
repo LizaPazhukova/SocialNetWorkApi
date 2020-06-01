@@ -24,8 +24,8 @@ let PostService = class PostService {
             })
         };
     }
-    getPosts() {
-        return this.http.get(this.url + 'api/home/posts');
+    getPosts(UserId) {
+        return this.http.get(this.url + 'api/home/posts/' + UserId);
     }
     createPost(post) {
         return this.http.post(this.url + 'api/home/post/', post);

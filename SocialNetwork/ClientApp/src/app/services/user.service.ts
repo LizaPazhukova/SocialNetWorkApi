@@ -25,6 +25,9 @@ export class UserService {
   getCurrentUser(): Observable<User> {
     return this.http.get<User>(this.baseUrl + 'api/home/currentUser');
   }
+  getUser(id: number): Observable<User> {
+    return this.http.get<User>(this.baseUrl + 'api/home/user/' + id);
+  }
 }
 
   

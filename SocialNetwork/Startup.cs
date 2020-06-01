@@ -6,8 +6,6 @@ using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
-//using SocialNetwork.Data;
-//using SocialNetwork.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -16,8 +14,10 @@ using SocialNetwork.Dal;
 using SocialNetwork.Dal.Repositories;
 using SocialNetwork.Logic.Interfaces;
 using SocialNetwork.Logic.Services;
+using AutoMapper;
 using System;
 using Newtonsoft.Json;
+using SocialNetwork.Logic.MappingProfiles;
 
 namespace SocialNetwork
 {
@@ -36,6 +36,8 @@ namespace SocialNetwork
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddAutoMapper(typeof(AutoMapperProfile));
 
             services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();

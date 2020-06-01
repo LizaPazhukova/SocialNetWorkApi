@@ -10,7 +10,7 @@
 </head>
 <body>
   <form>
-    <div class="card gedf-card">
+    <div class="card gedf-card" *ngIf = "!id">
       <div class="card-header">
         <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
           <li class="nav-item">
@@ -45,10 +45,10 @@
         <div class="d-flex justify-content-between align-items-center">
           <div class="d-flex justify-content-between align-items-center">
             <div class="mr-2">
-              <img class="rounded-circle" width="45" height="45" src="data:image/png;base64,{{user.avatar}}">
+              <img class="rounded-circle" width="45" height="45" src="data:image/png;base64,{{post.appUser.avatar}}">
             </div>
             <div class="ml-2">
-              <div class="h7 text-muted">{{user.fullName}}</div> <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i> {{post.date | date}}</div>
+              <div class="h7 text-muted">{{post.appUser.fullName}}</div> <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i> {{post.date | date}}</div>
             </div>
           </div>
         </div>
@@ -61,8 +61,8 @@
         </p>
       </div>
       <div class="card-footer">
-        <a href="#" class="card-link" (click)=likePost(post.id)><i class="fa fa-gittip"></i> Like <span *ngIf="post.likes?.length>0">{{post.likes.length}}</span></a>
-        <a href="#" class="card-link" (click)="isCollapsed[i] = !isCollapsed[i]" [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample"><i class="fa fa-comment"></i> Comment</a>
+        <a class="card-link" (click)=likePost(post.id)><i class="fa fa-gittip"></i> Like <span *ngIf="post.likes?.length>0">{{post.likes.length}}</span></a>
+        <a class="card-link" (click)="isCollapsed[i] = !isCollapsed[i]" [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample"><i class="fa fa-comment"></i> Comment</a>
       </div>
       <div [ngbCollapse]="!isCollapsed[i]" id="collapseExample">
         <div class="card-body" *ngFor="let comment of post.comments">

@@ -1,4 +1,5 @@
 ﻿using SocialNetwork.Dal.Models;
+using SocialNetwork.Dal.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,7 +10,7 @@ namespace SocialNetwork.Dal
     {
         IRepository<AppUser> Users { get; }
         IRepository<Message> Messages { get; }
-        IRepository<Post> Posts { get; }
+        IPostRepository Posts { get; }
         IRepository<Like> Likes { get; }  
         IRepository<Request> Requests { get; }
         IRepository<Comment> Comments { get; }

@@ -8,9 +8,9 @@ namespace SocialNetwork.Logic.Interfaces
 {
     public interface IUserService
     {
-        IEnumerable<AppUser> GetUsers(SearchUser userSearchParams);
-        IEnumerable<AppUser> SearchedUsers(string name);
-        AppUser GetUser(int id);
+        IEnumerable<UserDTO> GetUsers(SearchUser userSearchParams);
+        IEnumerable<UserDTO> SearchedUsers(string name);
+        UserDTO GetUser(int id);
 
     }
 }

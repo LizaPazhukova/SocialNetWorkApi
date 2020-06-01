@@ -1,4 +1,5 @@
-﻿using SocialNetwork.Dal;
+﻿using AutoMapper;
+using SocialNetwork.Dal;
 using SocialNetwork.Dal.Models;
 using SocialNetwork.Dal.Repositories;
 using SocialNetwork.Logic.DTO;
@@ -13,17 +14,20 @@ namespace SocialNetwork.Logic.Services
     public class UserService : IUserService
     {
         private readonly IUnitOfWork _unitOfWork;
-        public UserService(IUnitOfWork unitOfWork)
+        private IMapper _mapper;
+        public UserService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
-        public AppUser GetUser(int id)
+        public UserDTO GetUser(int id)
         {
-            return _unitOfWork.Users.GetById(id);
+            var user = _unitOfWork.Users.GetById(id);
+            return _mapper.Map<UserDTO>(user);
         }
-        public IEnumerable<AppUser> GetUsers(SearchUser userSearchParams)
+        public IEnumerable<UserDTO> GetUsers(SearchUser userSearchParams)
         {
-            IEnumerable<AppUser> users = _unitOfWork.Users.GetAll();
+            IEnumerable<AppUser> users = _unitOfWork.Users.GetAll().ToList();
             if (!string.IsNullOrEmpty(userSearchParams.Name))
             {
                 users = users.Where(u => u.FullName.ToLower().Contains(userSearchParams.Name.ToLower()));
@@ -40,10 +44,10 @@ namespace SocialNetwork.Logic.Services
             {
                 users = users.Where(u=>u.BirthDate.HasValue && Math.Abs(u.BirthDate.Value.Year-DateTime.Today.Year) >= userSearchParams.MinAge && Math.Abs(u.BirthDate.Value.Year - DateTime.Today.Year) <= userSearchParams.MaxAge);
             }
-            return users;
+            return _mapper.Map<IEnumerable<UserDTO>>(users);
         }
 
-        public IEnumerable<AppUser> SearchedUsers(string name)
+        public IEnumerable<UserDTO> SearchedUsers(string name)
         {
             IEnumerable<AppUser> users;
             if (string.IsNullOrEmpty(name))
@@ -54,7 +58,7 @@ namespace SocialNetwork.Logic.Services
             {
                 users = _unitOfWork.Users.GetAll().Where(i => i.FullName.Contains(name, StringComparison.OrdinalIgnoreCase)).OrderBy(i => i.Id);
             }
-            return users;
+            return _mapper.Map<IEnumerable<UserDTO>>(users);
         }
     }
 }

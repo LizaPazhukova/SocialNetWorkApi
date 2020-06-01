@@ -17,7 +17,7 @@ namespace SocialNetwork.Logic.Services
         }
         public IEnumerable<Post> GetPosts(int userId)
         {
-            return _unitOfWork.Posts.GetAll(x => x.Likes, x=>x.AppUser, x=>x.Comments).Where(i=>i.AppUserId==userId).OrderByDescending(x=>x.Date);
+            return _unitOfWork.Posts.GetPostsWithComments().Where(i=>i.AppUserId==userId).OrderByDescending(x=>x.Date);
         }
         public void Create(int userId, string text)
         {

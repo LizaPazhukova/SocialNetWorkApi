@@ -15,22 +15,37 @@ const user_service_1 = require("../services/user.service");
 const post_1 = require("../models/post");
 const like_1 = require("../models/like");
 const comment_1 = require("../models/comment");
+const router_1 = require("@angular/router");
 let PostComponent = class PostComponent {
-    constructor(postService, userService) {
+    constructor(postService, userService, route) {
         this.postService = postService;
         this.userService = userService;
+        this.route = route;
         this.posts = [];
         this.isCollapsed = [];
     }
     ngOnInit() {
-        this.postService.getPosts().subscribe(result => {
-            this.posts = result.sort(x => x.date);
-        }, error => console.error(error));
+        this.route.params.subscribe(params => {
+            this.id = params['id'];
+        });
+        //this.userService.getCurrentUser().subscribe(result => { this.user = result },
+        //  error => console.error(error), () => { console.log(this.user.id);});
+        //console.log(this.user.id);
+        //console.log(this.user.fullName);
         this.userService.getCurrentUser().subscribe(result => {
             this.user = result;
-        }, error => console.error(error));
-        console.log(this.posts);
+            this.postService.getPosts(this.id != undefined ? this.id : this.user.id).subscribe(result => {
+                this.posts = result.sort(x => x.date);
+            }, error => console.error(error));
+        });
+        //this.postService.getPosts(this.id != undefined ? this.id : this.user.id).subscribe(result => {
+        //  this.posts = result.sort(x => x.date);
+        //}, error => console.error(error));
+        //console.log(this.posts);
     }
+    //getCurrentUser() {
+    //  this.userService.getCurrentUser().subscribe(result => this.user = result);
+    // }
     createPost() {
         this.postService.createPost(new post_1.Post(this.text)).subscribe(result => this.posts.unshift(result));
         this.text = '';
@@ -38,7 +53,7 @@ let PostComponent = class PostComponent {
     likePost(postId) {
         var like = new like_1.Like();
         like.postId = postId;
-        this.postService.likePost(like).subscribe(() => this.postService.getPosts().subscribe(result => {
+        this.postService.likePost(like).subscribe(() => this.postService.getPosts(this.id != undefined ? this.id : this.user.id).subscribe(result => {
             this.posts = result.sort(x => x.date);
         }, error => console.error(error)));
     }
@@ -46,7 +61,9 @@ let PostComponent = class PostComponent {
         var comment = new comment_1.Comment();
         comment.postId = postId;
         comment.text = text;
-        this.postService.createComment(comment).subscribe();
+        this.postService.createComment(comment).subscribe(() => this.postService.getPosts(this.id != undefined ? this.id : this.user.id).subscribe(result => {
+            this.posts = result.sort(x => x.date);
+        }, error => console.error(error)));
     }
 };
 PostComponent = __decorate([
@@ -54,7 +71,7 @@ PostComponent = __decorate([
         selector: 'app-post',
         templateUrl: './post.component.html'
     }),
-    __metadata("design:paramtypes", [post_service_1.PostService, user_service_1.UserService])
+    __metadata("design:paramtypes", [post_service_1.PostService, user_service_1.UserService, router_1.ActivatedRoute])
 ], PostComponent);
 exports.PostComponent = PostComponent;
 //# sourceMappingURL=post.component.js.map

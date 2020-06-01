@@ -12,13 +12,39 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@angular/core");
 const users_1 = require("../models/users");
 const user_service_1 = require("../services/user.service");
+const router_1 = require("@angular/router");
 let UserProfileComponent = class UserProfileComponent {
-    constructor(userService) {
+    constructor(userService, route) {
         this.userService = userService;
+        this.route = route;
         this.gender = users_1.Gender;
     }
     ngOnInit() {
-        this.userService.getCurrentUser().subscribe(result => this.user = result);
+        this.route.params.subscribe(params => {
+            this.id = params['id'];
+        });
+        if (this.id == undefined) {
+            this.userService.getCurrentUser().subscribe(result => this.user = result);
+        }
+        else {
+            this.userService.getUser(this.id).subscribe(result => {
+                this.user = result;
+            }, error => console.error(error));
+        }
+        //this.userService.getUser(this.id != undefined ? this.id : this.user.id).subscribe(result => this.user = result);
+        //this.userService.getCurrentUser().subscribe(result => {
+        //  this.user = result;
+        //  if (this.id != this.user.id) {
+        //  this.userService.getUser(this.id != undefined ? this.id : this.user.id).subscribe(result => {
+        //    this.user = result;
+        //  }, error => console.error(error));
+        //}
+        //this.userService.getCurrentUser().subscribe(result => {
+        //  this.user = result;
+        //  this.userService.getUser(this.id != undefined ? this.id : this.user.id).subscribe(result => {
+        //    this.user = result;
+        //  }, error => console.error(error));
+        //});
     }
 };
 UserProfileComponent = __decorate([
@@ -26,7 +52,7 @@ UserProfileComponent = __decorate([
         selector: 'app-user-profile',
         templateUrl: './user-profile.component.html'
     }),
-    __metadata("design:paramtypes", [user_service_1.UserService])
+    __metadata("design:paramtypes", [user_service_1.UserService, router_1.ActivatedRoute])
 ], UserProfileComponent);
 exports.UserProfileComponent = UserProfileComponent;
 //# sourceMappingURL=user-profile.component.js.map

@@ -9,7 +9,7 @@
   <title></title>
 </head>
 <body>
-  <div class="w3-card w3-round w3-white">
+  <div class="w3-card w3-round w3-white" *ngIf="user">
     <div class="w3-container">
       <h4 class="w3-center">{{user.fullName}}</h4>
       <p class="w3-center"><img src="data:image/png;base64,{{user.avatar}}" class="w3-circle" style="height:120px;width:106px" alt="Avatar"></p>

@@ -1,4 +1,4 @@
-import { Component, Inject} from '@angular/core';
+import { Component, Inject, OnInit} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -8,6 +8,7 @@ import { User } from '../models/users';
 import { Post } from '../models/post';
 import { Like } from '../models/like';
 import { Comment} from '../models/comment';
+import { ActivatedRoute } from '@angular/router'
 
 @Component({
   selector: 'app-post',
@@ -15,36 +16,34 @@ import { Comment} from '../models/comment';
 })
 
 
-export class PostComponent {
+export class PostComponent implements OnInit {
   public posts: Post[] = [];
   text: string;
-  user: User;
+  public user: User;
   public isCollapsed : boolean[] = [];
+  id: number;
 
-  constructor( private postService: PostService, private userService: UserService) {
-
-  }
+  constructor(private postService: PostService, private userService: UserService, private route: ActivatedRoute) {}
   
   ngOnInit() {
-    this.postService.getPosts().subscribe(result => {
-      this.posts = result.sort(x => x.date);
-    }, error => console.error(error));
+    this.route.params.subscribe(params => {
+      this.id = params['id'];
+    });
     this.userService.getCurrentUser().subscribe(result => {
       this.user = result;
-    }, error => console.error(error));
-    console.log(this.posts);
+      this.postService.getPosts(this.id != undefined ? this.id : this.user.id).subscribe(result => {
+        this.posts = result.sort(x => x.date);
+      }, error => console.error(error));
+    });
   }
-
   createPost() {
-    
     this.postService.createPost(new Post(this.text)).subscribe(result => this.posts.unshift(result));
     this.text = '';
   }
   likePost(postId: number) {
     var like = new Like();
     like.postId = postId;
-
-    this.postService.likePost(like).subscribe(() => this.postService.getPosts().subscribe(result => {
+    this.postService.likePost(like).subscribe(() => this.postService.getPosts(this.id != undefined ? this.id : this.user.id).subscribe(result => {
       this.posts = result.sort(x => x.date);
     }, error => console.error(error)));
 
@@ -53,7 +52,9 @@ export class PostComponent {
     var comment = new Comment();
     comment.postId = postId;
     comment.text = text;
-    this.postService.createComment(comment).subscribe();
+    this.postService.createComment(comment).subscribe(() => this.postService.getPosts(this.id != undefined ? this.id : this.user.id).subscribe(result => {
+      this.posts = result.sort(x => x.date);
+    }, error => console.error(error)));
   }
 }
 
