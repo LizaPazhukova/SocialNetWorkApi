@@ -21,16 +21,13 @@
     <thead>
       <tr>
         <th>Name</th>
-        <th>Surname</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let friend of friends">
-        <td>{{ friend.firstName }}</td>
-        <td>{{ friend.lastName }}</td>
+        <td><a class="btn btn-white-view" [routerLink]="[ '/app-home', friend.id ]">{{ friend.fullName }}</a></td>
         <td><img class="rounded-circle" width="45" height="45" src="data:image/png;base64,{{friend.avatar}}"></td>
         <td><button (click)="openFormModal(friend.id)">Send Message</button></td>
-        <td><a class="btn btn-white-view" [routerLink]="[ friend.id ]">view</a></td>
       </tr>
     </tbody>
   </table>

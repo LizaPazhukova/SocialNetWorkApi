@@ -28,27 +28,20 @@ let PostComponent = class PostComponent {
         this.route.params.subscribe(params => {
             this.id = params['id'];
         });
-        //this.userService.getCurrentUser().subscribe(result => { this.user = result },
-        //  error => console.error(error), () => { console.log(this.user.id);});
-        //console.log(this.user.id);
-        //console.log(this.user.fullName);
         this.userService.getCurrentUser().subscribe(result => {
             this.user = result;
             this.postService.getPosts(this.id != undefined ? this.id : this.user.id).subscribe(result => {
                 this.posts = result.sort(x => x.date);
             }, error => console.error(error));
         });
-        //this.postService.getPosts(this.id != undefined ? this.id : this.user.id).subscribe(result => {
-        //  this.posts = result.sort(x => x.date);
-        //}, error => console.error(error));
-        //console.log(this.posts);
     }
-    //getCurrentUser() {
-    //  this.userService.getCurrentUser().subscribe(result => this.user = result);
-    // }
     createPost() {
-        this.postService.createPost(new post_1.Post(this.text)).subscribe(result => this.posts.unshift(result));
+        // this.postService.createPost(new Post(this.text)).subscribe(result => this.posts.unshift(result));
+        this.postService.createPost(new post_1.Post(this.text)).subscribe(() => this.postService.getPosts(this.id != undefined ? this.id : this.user.id).subscribe(result => {
+            this.posts = result.sort(x => x.date);
+        }, error => console.error(error)));
         this.text = '';
+        //var post = new Post(this.text);
     }
     likePost(postId) {
         var like = new like_1.Like();
@@ -62,6 +55,11 @@ let PostComponent = class PostComponent {
         comment.postId = postId;
         comment.text = text;
         this.postService.createComment(comment).subscribe(() => this.postService.getPosts(this.id != undefined ? this.id : this.user.id).subscribe(result => {
+            this.posts = result.sort(x => x.date);
+        }, error => console.error(error)));
+    }
+    deletePost(id) {
+        this.postService.deletePost(id).subscribe(() => this.postService.getPosts(this.id != undefined ? this.id : this.user.id).subscribe(result => {
             this.posts = result.sort(x => x.date);
         }, error => console.error(error)));
     }

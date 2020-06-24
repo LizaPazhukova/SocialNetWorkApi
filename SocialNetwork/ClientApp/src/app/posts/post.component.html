@@ -10,7 +10,7 @@
 </head>
 <body>
   <form>
-    <div class="card gedf-card" *ngIf = "!id">
+    <div class="card gedf-card" *ngIf="!id">
       <div class="card-header">
         <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
           <li class="nav-item">
@@ -38,9 +38,10 @@
     </div>
   </form>
   <!--post-->
+
   <div *ngFor="let post of posts; let i = index">
     <br />
-    <div class="card gedf-card" >
+    <div class="card gedf-card">
       <div class="card-header">
         <div class="d-flex justify-content-between align-items-center">
           <div class="d-flex justify-content-between align-items-center">
@@ -61,8 +62,9 @@
         </p>
       </div>
       <div class="card-footer">
-        <a class="card-link" (click)=likePost(post.id)><i class="fa fa-gittip"></i> Like <span *ngIf="post.likes?.length>0">{{post.likes.length}}</span></a>
-        <a class="card-link" (click)="isCollapsed[i] = !isCollapsed[i]" [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample"><i class="fa fa-comment"></i> Comment</a>
+        <button class="btn btn-light" (click)=likePost(post.id)><i class="fa fa-gittip"></i> Like <span *ngIf="post.likes?.length>0">{{post.likes.length}}</span></button>
+        <button class="btn btn-light" (click)="isCollapsed[i] = !isCollapsed[i]" [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample"><i class="fa fa-comment"></i> Comment <span *ngIf="post.comments?.length>0">{{post.comments.length}}</span></button>
+        <button class="btn btn-light" (click)="deletePost(post.id)"><i class="fa fa-trash"></i> Delete</button>
       </div>
       <div [ngbCollapse]="!isCollapsed[i]" id="collapseExample">
         <div class="card-body" *ngFor="let comment of post.comments">
@@ -72,22 +74,15 @@
               <p class="text-secondary">{{comment.date | date}}</p>
             </div>
             <div class="col-md-10">
-              <p><a href="#"><strong>{{comment.appUser.fullName}}</strong></a></p>
+              <p><button type="button" class="btn btn-link" [routerLink]="[ '/app-home', comment.appUser.id ]"><strong>{{comment.appUser.fullName}}</strong></button></p>
               <p>{{comment.text}}</p>
             </div>
           </div>
         </div>
         <input #text type="text" class="form-control" placeholder="Type your comment here" (keyup.enter)="createComment(post.id, text.value); text.value=''">
-        <!--<div class="card-text" *ngFor="let comment of post.comments">
-        <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i> {{comment.date | date}}</div>
-        <span>{{comment.appUser.fullName}}</span>
-        <p class="card-text">
-          {{comment.text}}
-        </p>
-      </div>
-      <input #text type="text" class="form-control" placeholder="Type your comment here" (keyup.enter)="createComment(post.id, text.value); text.value=''">-->
       </div>
     </div>
   </div>
- </body>
+  <h3 *ngIf="posts?.length == 0">There are no posts yet.</h3>
+</body>
 </html>

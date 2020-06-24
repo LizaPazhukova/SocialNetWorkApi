@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SocialNetwork.Dal.Models;
+using SocialNetwork.Logic.DTO;
 using SocialNetwork.Logic.Interfaces;
 
 namespace SocialNetwork.Controllers
@@ -29,10 +30,10 @@ namespace SocialNetwork.Controllers
             return Ok();
         }
         [HttpGet("requests")]
-        public IEnumerable<Request> Requests()
+        public IEnumerable<RequestDTO> Requests()
         {
             var currentUserId = Convert.ToInt32(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            IEnumerable<Request> requests = _friendRequestService.GetCurrentUserRequest(currentUserId);
+            IEnumerable<RequestDTO> requests = _friendRequestService.GetCurrentUserRequest(currentUserId);
 
             return requests;
         }
@@ -41,7 +42,7 @@ namespace SocialNetwork.Controllers
         {
             _friendRequestService.AcceptRequest(id);
             return Ok();
-           // return RedirectToAction("Requests", "FriendRequest");
+           
         }
         [HttpGet("rejectRequest/{id}")]
         public IActionResult RejectRequest(int id)
@@ -50,11 +51,11 @@ namespace SocialNetwork.Controllers
             return Ok();
         }
         [HttpGet("friends")]
-        public IEnumerable<AppUser> Friends()
+        public IEnumerable<UserDTO> Friends()
         {
             var currentUserId = Convert.ToInt32(User.FindFirstValue(ClaimTypes.NameIdentifier));
 
-            IEnumerable<AppUser> friends = _friendRequestService.GetUserFriends(currentUserId);
+            IEnumerable<UserDTO> friends = _friendRequestService.GetUserFriends(currentUserId);
             return friends;
         }
     }

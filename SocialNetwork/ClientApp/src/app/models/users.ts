@@ -8,6 +8,7 @@ export class User {
   birthDate: number;
   gender: Gender;
   phoneNumber: string;
+  friends: User[];
 }
 export enum Gender {
   Male,

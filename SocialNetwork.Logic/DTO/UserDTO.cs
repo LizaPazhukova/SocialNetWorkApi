@@ -18,7 +18,7 @@ namespace SocialNetwork.Logic.DTO
         public List<PostDTO> Posts { get; set; }
         public List<RequestDTO> Requests { get; set; }
         public List<MessageDTO> Messages { get; set; }
-        public List<UserDTO> Friends { get; set; } = new List<UserDTO>();
+        public List<UserDTO> Friends { get; set; } 
         public List<LikeDTO> Likes { get; set; }
         public List<CommentDTO> Comments { get; set; }
         public byte[] Avatar { get; set; }

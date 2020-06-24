@@ -37,8 +37,12 @@ export class PostComponent implements OnInit {
     });
   }
   createPost() {
-    this.postService.createPost(new Post(this.text)).subscribe(result => this.posts.unshift(result));
+    // this.postService.createPost(new Post(this.text)).subscribe(result => this.posts.unshift(result));
+    this.postService.createPost(new Post(this.text)).subscribe(() => this.postService.getPosts(this.id != undefined ? this.id : this.user.id).subscribe(result => {
+      this.posts = result.sort(x => x.date);
+    }, error => console.error(error)));
     this.text = '';
+    //var post = new Post(this.text);
   }
   likePost(postId: number) {
     var like = new Like();
@@ -53,6 +57,11 @@ export class PostComponent implements OnInit {
     comment.postId = postId;
     comment.text = text;
     this.postService.createComment(comment).subscribe(() => this.postService.getPosts(this.id != undefined ? this.id : this.user.id).subscribe(result => {
+      this.posts = result.sort(x => x.date);
+    }, error => console.error(error)));
+  }
+  deletePost(id: number) {
+    this.postService.deletePost(id).subscribe(() => this.postService.getPosts(this.id != undefined ? this.id : this.user.id).subscribe(result => {
       this.posts = result.sort(x => x.date);
     }, error => console.error(error)));
   }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SocialNetwork.Dal.Models;
+using SocialNetwork.Logic.DTO;
 using SocialNetwork.Logic.Interfaces;
 
 namespace SocialNetwork.Controllers
@@ -22,7 +23,7 @@ namespace SocialNetwork.Controllers
         }
 
         [HttpPost("send")]
-        public IActionResult Send(Message message)
+        public IActionResult Send(MessageDTO message)
         {
             var fromUserId = Convert.ToInt32(User.FindFirstValue(ClaimTypes.NameIdentifier));
           
@@ -32,17 +33,17 @@ namespace SocialNetwork.Controllers
         }
 
         [HttpGet("messages")]
-        public IEnumerable<Message> Messages()
+        public IEnumerable<MessageDTO> Messages()
         {
             var currentUserId = Convert.ToInt32(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            IEnumerable<Message> messages = _messageService.GetUserMessages(currentUserId);
+            IEnumerable<MessageDTO> messages = _messageService.GetUserMessages(currentUserId);
             return messages;
         }
         [HttpGet("messagesWithOneUser/{fromUserId}/{toUserId}")]
-        public IEnumerable<Message> MessagesWithOneUser(int fromUserId, int toUserId)
+        public IEnumerable<MessageDTO> MessagesWithOneUser(int fromUserId, int toUserId)
         {
             
-            IEnumerable<Message> messages = _messageService.GetUserMessagesWithOneUser(fromUserId, toUserId);
+            IEnumerable<MessageDTO> messages = _messageService.GetUserMessagesWithOneUser(fromUserId, toUserId);
             return messages;
         }
     }

@@ -1,14 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using SocialNetwork.Logic.Services;
 using SocialNetwork.Logic.Interfaces;
-using SocialNetwork.Dal.Models;
 using System.Security.Claims;
-using SocialNetwork.Inputs;
 using SocialNetwork.Logic.DTO;
 
 namespace SocialNetwork.Controllers
@@ -26,9 +21,9 @@ namespace SocialNetwork.Controllers
         }
 
         [HttpGet("posts/{userId}")]
-        public IEnumerable<Post> Get(int userId)
+        public IEnumerable<PostDTO> Get(int userId)
         {
-            IEnumerable<Post> posts = _postService.GetPosts(userId).ToList();
+            IEnumerable<PostDTO> posts = _postService.GetPosts(userId).ToList();
 
             return posts;
         }
@@ -59,25 +54,32 @@ namespace SocialNetwork.Controllers
         }
 
         [HttpPost("post")]
-        public IActionResult Create(Post post)
+        public ActionResult<PostDTO> Create(PostDTO post)
         {
             var userId = Convert.ToInt32(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            //return Ok(_postService.Create(userId, post.Text)); //
             _postService.Create(userId, post.Text);
             return CreatedAtAction("Get", new { id = post.Id }, post);
         }
         [HttpPost("comment")]
-        public IActionResult CreateComment(Comment comment)
+        public IActionResult CreateComment(CommentDTO comment)
         {
             var userId = Convert.ToInt32(User.FindFirstValue(ClaimTypes.NameIdentifier));
             _postService.CreateComment(comment.PostId, userId, comment.Text);
             return Ok();
         }
         [HttpPost("like")]
-        public IActionResult LikePost(Like like)
+        public IActionResult LikePost(LikeDTO like)
         {
             var userId = Convert.ToInt32(User.FindFirstValue(ClaimTypes.NameIdentifier));
             _postService.LikePost(userId, like.PostId);
             return Ok();
+        }
+        [HttpDelete("post/{id}")]
+        public IActionResult DeletePost(int id)
+        {
+            _postService.Delete(id);
+            return NoContent();
         }
 
         //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

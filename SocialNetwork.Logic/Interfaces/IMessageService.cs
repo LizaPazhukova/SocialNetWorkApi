@@ -1,4 +1,5 @@
 ﻿using SocialNetwork.Dal.Models;
+using SocialNetwork.Logic.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace SocialNetwork.Logic.Interfaces
     public interface IMessageService
     {
         void SendMessage(int toUserId, int fromUserId, string messageText);
-        IEnumerable<Message> GetUserMessages(int currentUserId);
-        IEnumerable<Message> GetUserMessagesWithOneUser(int otherUserId, int curentUserId);
+        IEnumerable<MessageDTO> GetUserMessages(int currentUserId);
+        IEnumerable<MessageDTO> GetUserMessagesWithOneUser(int otherUserId, int curentUserId);
     }
 }

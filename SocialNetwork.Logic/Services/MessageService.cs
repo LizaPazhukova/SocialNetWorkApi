@@ -1,6 +1,8 @@
-﻿using SocialNetwork.Dal;
+﻿using AutoMapper;
+using SocialNetwork.Dal;
 using SocialNetwork.Dal.Models;
 using SocialNetwork.Dal.Repositories;
+using SocialNetwork.Logic.DTO;
 using SocialNetwork.Logic.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -11,13 +13,15 @@ namespace SocialNetwork.Logic.Services
     public class MessageService : IMessageService
     {
         private readonly IUnitOfWork _unitOfWork;
-        public MessageService(IUnitOfWork unitOfWork)
+        private readonly IMapper _mapper;
+        public MessageService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
-        public IEnumerable<Message> GetUserMessages(int currentUserId)
+        public IEnumerable<MessageDTO> GetUserMessages(int currentUserId)
         {
-            return _unitOfWork.Messages.GetAll(x => x.FromUser).AsEnumerable()
+            var messages = _unitOfWork.Messages.GetAll(x => x.FromUser).AsEnumerable()
                                      .Where(x => x.ToUserId == currentUserId || x.FromUserId == currentUserId)
                                      .GroupBy(m => new
                                      {
@@ -26,6 +30,7 @@ namespace SocialNetwork.Logic.Services
                                      })
                                      .Select(gm => gm.OrderByDescending(m => m.Date).ToList()
                                      .FirstOrDefault());
+            return _mapper.Map<IEnumerable<MessageDTO>>(messages);
         }
 
         public void SendMessage(int toUserId, int fromUserId, string messageText)
@@ -40,9 +45,11 @@ namespace SocialNetwork.Logic.Services
             _unitOfWork.Messages.Create(message);
             _unitOfWork.Save();
         }
-        public IEnumerable<Message> GetUserMessagesWithOneUser(int fromUserId, int toUserId)
+        public IEnumerable<MessageDTO> GetUserMessagesWithOneUser(int fromUserId, int toUserId)
         {
-            return _unitOfWork.Messages.GetAll(x => x.FromUser).Where(x => x.ToUserId == toUserId && x.FromUserId == fromUserId || x.ToUserId == fromUserId && x.FromUserId == toUserId).ToList();
+            var messages = _unitOfWork.Messages.GetAll(x => x.FromUser)
+                .Where(x => x.ToUserId == toUserId && x.FromUserId == fromUserId || x.ToUserId == fromUserId && x.FromUserId == toUserId).ToList();
+            return _mapper.Map<IEnumerable<MessageDTO>>(messages);
         }
     }
 }

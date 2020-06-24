@@ -36,6 +36,9 @@ let PostService = class PostService {
     createComment(comment) {
         return this.http.post(this.url + 'api/home/comment', comment);
     }
+    deletePost(id) {
+        return this.http.delete(this.url + 'api/home/post/' + id);
+    }
 };
 PostService = __decorate([
     core_1.Injectable({

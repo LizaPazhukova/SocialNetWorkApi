@@ -9,6 +9,7 @@ namespace SocialNetwork.Logic.DTO
         public int Id { get; set; }
         public string Text { get; set; }
         public DateTime Date { get; set; }
+        public int PostId { get; set; }
         public PostDTO Post { get; set; }
         public UserDTO AppUser { get; set; }
     }

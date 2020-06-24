@@ -1,6 +1,8 @@
-﻿using SocialNetwork.Dal;
+﻿using AutoMapper;
+using SocialNetwork.Dal;
 using SocialNetwork.Dal.Models;
 using SocialNetwork.Dal.Repositories;
+using SocialNetwork.Logic.DTO;
 using SocialNetwork.Logic.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -11,15 +13,18 @@ namespace SocialNetwork.Logic.Services
     public class PostService : IPostService
     {
         private readonly IUnitOfWork _unitOfWork;
-        public PostService(IUnitOfWork unitOfWork)
+        private readonly IMapper _mapper;
+        public PostService(IUnitOfWork unitOfWork, IMapper mapper)
         {
            _unitOfWork = unitOfWork;
+           _mapper = mapper;
         }
-        public IEnumerable<Post> GetPosts(int userId)
+        public IEnumerable<PostDTO> GetPosts(int userId)
         {
-            return _unitOfWork.Posts.GetPostsWithComments().Where(i=>i.AppUserId==userId).OrderByDescending(x=>x.Date);
+            var posts = _unitOfWork.Posts.GetPostsWithComments().Where(i=>i.AppUserId==userId).OrderByDescending(x=>x.Date);
+            return _mapper.Map<IEnumerable<PostDTO>>(posts);
         }
-        public void Create(int userId, string text)
+        public PostDTO Create(int userId, string text)
         {
             Post post = new Post()
             {
@@ -29,6 +34,7 @@ namespace SocialNetwork.Logic.Services
             };
             _unitOfWork.Posts.Create(post);
             _unitOfWork.Save();
+            return _mapper.Map<PostDTO>(post);
         }
         public void CreateComment(int id, int userId, string text)
         {
@@ -64,6 +70,12 @@ namespace SocialNetwork.Logic.Services
                 _unitOfWork.Likes.Delete(existingLike);
             }
 
+            _unitOfWork.Save();
+        }
+        public void Delete(int id)
+        {
+            var post = _unitOfWork.Posts.GetById(id);
+            _unitOfWork.Posts.Delete(post);
             _unitOfWork.Save();
         }
     }

@@ -44,7 +44,7 @@ import { FriendRequestComponent } from './friend/friend-request.component';
     NgbModule.forRoot(),
     RouterModule.forRoot([
       { path: '', component: HomeComponent, canActivate: [AuthorizeGuard] },
-      { path: 'friends/:id', component: HomeComponent, canActivate: [AuthorizeGuard] },
+      { path: 'app-home/:id', component: HomeComponent, canActivate: [AuthorizeGuard] },
       { path: 'login', component: LoginComponent },
       { path: 'users', component: UserComponent, canActivate: [AuthorizeGuard] },
       { path: 'post', component: PostComponent, canActivate: [AuthorizeGuard] },

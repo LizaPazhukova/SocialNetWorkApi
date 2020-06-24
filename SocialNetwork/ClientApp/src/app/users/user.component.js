@@ -22,11 +22,15 @@ let UserComponent = class UserComponent {
         this.UserService = UserService;
         this.modalService = modalService;
         this.formBuilder = formBuilder;
+        this.friends = this.FriendRequestService.getFriends().subscribe(result => this.friends = result);
         this.createForm();
     }
     ngOnInit() {
         this.UserService.getUsers(this.searchUser).subscribe(result => {
             this.users = result;
+        }, error => console.error(error));
+        this.UserService.getCurrentUser().subscribe(result => {
+            this.currentUser = result;
         }, error => console.error(error));
     }
     createForm() {
@@ -51,6 +55,9 @@ let UserComponent = class UserComponent {
     }
     sendFriendRequest(id) {
         this.FriendRequestService.sendFriendRequest(id);
+    }
+    isFriend(user) {
+        return this.friends.some(x => x.id == user.id);
     }
     openFormModal(id) {
         const modalRef = this.modalService.open(form_modal_component_1.FormModalComponent);

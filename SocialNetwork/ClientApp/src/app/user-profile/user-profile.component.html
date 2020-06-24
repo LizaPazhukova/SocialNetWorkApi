@@ -14,10 +14,10 @@
       <h4 class="w3-center">{{user.fullName}}</h4>
       <p class="w3-center"><img src="data:image/png;base64,{{user.avatar}}" class="w3-circle" style="height:120px;width:106px" alt="Avatar"></p>
       <hr>
-      <p><i class="fa fa-phone fa-fw w3-margin-right w3-text-theme"></i>{{user.phoneNumber}}</p>
-      <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i>{{user.city}}</p>
-      <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i>{{user.birthDate | date}}</p>
-      <p><i class="fa fa-venus-mars fa-fw w3-margin-right w3-text-theme"></i>{{gender[user.gender]}}</p>
+      <p *ngIf="user.phoneNumber"><i class="fa fa-phone fa-fw w3-margin-right w3-text-theme"></i>{{user.phoneNumber}}</p>
+      <p *ngIf="user.city"><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i>{{user.city}}</p>
+      <p *ngIf="user.birthDate"><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i>{{user.birthDate | date}}</p>
+      <p *ngIf="user.gender"><i class="fa fa-venus-mars fa-fw w3-margin-right w3-text-theme"></i>{{gender[user.gender]}}</p>
     </div>
   </div>
 </body>

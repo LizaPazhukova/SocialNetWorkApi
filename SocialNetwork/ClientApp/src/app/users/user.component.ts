@@ -20,6 +20,9 @@ export class UserComponent implements OnInit {
   private minAge: number;
   private maxAge: number;
   private gender: Gender;
+  public currentUser: User;
+
+  
 
   constructor(
     private FriendRequestService: FriendRequestService,
@@ -34,6 +37,9 @@ export class UserComponent implements OnInit {
     this.UserService.getUsers(this.searchUser).subscribe(result => {
       this.users = result;
     }, error => console.error(error));
+    this.UserService.getCurrentUser().subscribe(result => {
+      this.currentUser = result;
+    }, error => console.error(error));
   }
   private createForm() {
     this.form = this.formBuilder.group({
@@ -44,7 +50,7 @@ export class UserComponent implements OnInit {
       maxAge: this.maxAge,
     });
   }
-  private search() {
+  public search() {
     var user = new searchUser;
     user.name = this.form.value.name;
     user.city = this.form.value.city;
@@ -57,11 +63,15 @@ export class UserComponent implements OnInit {
     }, error => console.error(error));
     
   }
-
+  public friends = this.FriendRequestService.getFriends().subscribe(result => this.friends = result);
   sendFriendRequest(id: number) {
 
     this.FriendRequestService.sendFriendRequest(id);
   
+  }
+  isFriend(user: User): boolean {
+    
+    return this.friends.some(x => x.id == user.id);
   }
   openFormModal(id: number) {
     const modalRef = this.modalService.open(FormModalComponent);

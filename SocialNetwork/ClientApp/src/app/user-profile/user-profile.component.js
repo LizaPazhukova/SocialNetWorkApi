@@ -31,20 +31,6 @@ let UserProfileComponent = class UserProfileComponent {
                 this.user = result;
             }, error => console.error(error));
         }
-        //this.userService.getUser(this.id != undefined ? this.id : this.user.id).subscribe(result => this.user = result);
-        //this.userService.getCurrentUser().subscribe(result => {
-        //  this.user = result;
-        //  if (this.id != this.user.id) {
-        //  this.userService.getUser(this.id != undefined ? this.id : this.user.id).subscribe(result => {
-        //    this.user = result;
-        //  }, error => console.error(error));
-        //}
-        //this.userService.getCurrentUser().subscribe(result => {
-        //  this.user = result;
-        //  this.userService.getUser(this.id != undefined ? this.id : this.user.id).subscribe(result => {
-        //    this.user = result;
-        //  }, error => console.error(error));
-        //});
     }
 };
 UserProfileComponent = __decorate([

@@ -9,7 +9,9 @@ namespace SocialNetwork.Logic.DTO
         public int Id { get; set; }
         public string Body { get; set; }
         public DateTime Date { get; set; }
+        public int FromUserId { get; set; }
         public UserDTO FromUser { get; set; }
+        public int ToUserId { get; set; }
         public UserDTO ToUser { get; set; }
     }
 }

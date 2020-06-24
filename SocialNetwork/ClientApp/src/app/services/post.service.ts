@@ -31,4 +31,7 @@ export class PostService {
   createComment(comment: Comment): Observable<Comment> {
     return this.http.post<Comment>(this.url + 'api/home/comment', comment);
   }
+  deletePost(id: number) {
+    return this.http.delete<Post>(this.url + 'api/home/post/'+id);
+  }
 }

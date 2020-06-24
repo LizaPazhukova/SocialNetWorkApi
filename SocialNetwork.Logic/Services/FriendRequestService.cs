@@ -1,6 +1,8 @@
-﻿using SocialNetwork.Dal;
+﻿using AutoMapper;
+using SocialNetwork.Dal;
 using SocialNetwork.Dal.Models;
 using SocialNetwork.Dal.Repositories;
+using SocialNetwork.Logic.DTO;
 using SocialNetwork.Logic.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -12,9 +14,11 @@ namespace SocialNetwork.Logic.Services
     public class FriendRequestService : IFriendRequestService
     {
         private readonly IUnitOfWork _unitOfWork;
-        public FriendRequestService(IUnitOfWork unitOfWork)
+        private readonly IMapper _mapper;
+        public FriendRequestService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
 
@@ -29,15 +33,16 @@ namespace SocialNetwork.Logic.Services
             _unitOfWork.Save();
         }
 
-        public IEnumerable<Request> GetCurrentUserRequest(int currentUserId)
+        public IEnumerable<RequestDTO> GetCurrentUserRequest(int currentUserId)
         {
-            return _unitOfWork.Requests.GetAll(x => x.AppUser).Where(x => x.ToUserId == currentUserId || x.FromUserId != currentUserId);
+            var requests = _unitOfWork.Requests.GetAll(x => x.AppUser).Where(x => x.ToUserId == currentUserId || x.FromUserId != currentUserId);
+            return _mapper.Map<IEnumerable<RequestDTO>>(requests);
         }
 
-        public IEnumerable<AppUser> GetUserFriends(int currentUserId)
+        public IEnumerable<UserDTO> GetUserFriends(int currentUserId)
         {
-            var user = _unitOfWork.Users.GetAll(u => u.Friends).SingleOrDefault(x => x.Id == currentUserId);
-            return user.Friends;
+            var friends = _unitOfWork.Users.GetAll(u => u.Friends).SingleOrDefault(x => x.Id == currentUserId).Friends;
+            return _mapper.Map<IEnumerable<UserDTO>>(friends);
         }
 
         public void RejectRequest(int id)
