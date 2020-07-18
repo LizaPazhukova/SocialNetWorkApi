@@ -50,6 +50,7 @@
         <td><img class="rounded-circle" width="45" height="45" src="data:image/png;base64,{{user.avatar}}"></td>
         <td *ngIf="user.id!=currentUser.id && !isFriend(user)"><button (click)="sendFriendRequest(user.id)">Send Request</button></td>
         <td *ngIf="user.id!=currentUser.id"><button (click)="openFormModal(user.id)">Send Message</button></td>
+        <td><a class="btn btn-white-view" [routerLink]="[ '/app-roles', user.id]">User rights</a></td>
       </tr>
 
     </tbody>

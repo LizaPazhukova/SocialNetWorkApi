@@ -40,10 +40,13 @@ namespace SocialNetwork
             services.AddAutoMapper(typeof(AutoMapperProfile));
 
             services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddRoles<AppRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddIdentityServer()
                 .AddApiAuthorization<AppUser, ApplicationDbContext>();
+
+            
 
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IMessageRepository, MessageRepository>();

@@ -16,6 +16,7 @@ import { AuthorizeGuard } from 'src/api-authorization/authorize.guard';
 import { AuthorizeInterceptor } from 'src/api-authorization/authorize.interceptor';
 import { UserComponent } from './users/user.component';
 import { PostComponent } from './posts/post.component';
+import { RolesComponent } from './roles/roles.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { MessageComponent } from './message/message.component';
 import { LoginComponent } from 'src/api-authorization/login/login.component';
@@ -29,6 +30,7 @@ import { FriendRequestComponent } from './friend/friend-request.component';
     HomeComponent,
     UserComponent,
     PostComponent,
+    RolesComponent,
     UserProfileComponent,
     MessageComponent,
     FormModalComponent,
@@ -50,7 +52,8 @@ import { FriendRequestComponent } from './friend/friend-request.component';
       { path: 'post', component: PostComponent, canActivate: [AuthorizeGuard] },
       { path: 'messages', component: MessageComponent, canActivate: [AuthorizeGuard] },
       { path: 'friends', component: FriendRequestComponent, canActivate: [AuthorizeGuard] },
-      { path: 'app-post/:id', component: PostComponent, canActivate: [AuthorizeGuard] }
+      { path: 'app-post/:id', component: PostComponent, canActivate: [AuthorizeGuard] },
+      { path: 'app-roles/:id', component: RolesComponent, canActivate: [AuthorizeGuard] }
     ])
   ],
   providers: [

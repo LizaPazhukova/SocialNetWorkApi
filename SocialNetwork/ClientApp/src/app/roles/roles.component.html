@@ -1,0 +1,9 @@
+<!--<h2>Change roles for user {{user.fullname}}</h2>-->
+user-rights
+<form (ngSubmit)="onSubmit(roleForm)" #roleForm="ngForm">
+    <div *ngFor="let role of roles">
+      <input type="checkbox" [checked]="userRoles.indexOf(role.name) > -1" ngModel name="{{role.name}}">{{role.name}}
+    </div>
+    <button type="submit" class="btn btn-success" [disabled]="!roleForm.form.valid">Submit</button>
+</form>
+
