@@ -1,0 +1,15 @@
+<p>User messages</p>
+
+<div class="inbox_chat">
+  <div class="chat_list" *ngFor="let message of messages">
+    <div class="chat_people">
+      <div class="chat_img"> <img class="rounded-circle" width="45" height="45" src="data:image/png;base64,{{message.fromUser.avatar}}"></div>
+      <div class="chat_ib">
+        <h5>{{message.fromUser.fullName}} <span class="chat_date">{{message.date | date}}</span></h5>
+        <p>
+          {{message.body}}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

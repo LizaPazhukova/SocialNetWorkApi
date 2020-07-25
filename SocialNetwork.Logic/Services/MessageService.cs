@@ -51,5 +51,12 @@ namespace SocialNetwork.Logic.Services
                 .Where(x => x.ToUserId == toUserId && x.FromUserId == fromUserId || x.ToUserId == fromUserId && x.FromUserId == toUserId).ToList();
             return _mapper.Map<IEnumerable<MessageDTO>>(messages);
         }
+
+        public IEnumerable<MessageDTO> GetAllMessages()
+        {
+            var messages = _unitOfWork.Messages.GetAll(x => x.FromUser);
+
+            return _mapper.Map<IEnumerable<MessageDTO>>(messages);
+        }
     }
 }

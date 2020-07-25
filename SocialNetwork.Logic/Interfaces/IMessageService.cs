@@ -12,5 +12,6 @@ namespace SocialNetwork.Logic.Interfaces
         void SendMessage(int toUserId, int fromUserId, string messageText);
         IEnumerable<MessageDTO> GetUserMessages(int currentUserId);
         IEnumerable<MessageDTO> GetUserMessagesWithOneUser(int otherUserId, int curentUserId);
+        IEnumerable<MessageDTO> GetAllMessages();
     }
 }

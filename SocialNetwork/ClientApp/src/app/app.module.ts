@@ -22,6 +22,7 @@ import { MessageComponent } from './message/message.component';
 import { LoginComponent } from 'src/api-authorization/login/login.component';
 import { FormModalComponent } from './form-modal/form-modal.component';
 import { FriendRequestComponent } from './friend/friend-request.component';
+import { ModeratorComponent } from './moderator/moderator.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { FriendRequestComponent } from './friend/friend-request.component';
     UserProfileComponent,
     MessageComponent,
     FormModalComponent,
-    FriendRequestComponent
+    FriendRequestComponent,
+    ModeratorComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -53,7 +55,8 @@ import { FriendRequestComponent } from './friend/friend-request.component';
       { path: 'messages', component: MessageComponent, canActivate: [AuthorizeGuard] },
       { path: 'friends', component: FriendRequestComponent, canActivate: [AuthorizeGuard] },
       { path: 'app-post/:id', component: PostComponent, canActivate: [AuthorizeGuard] },
-      { path: 'app-roles/:id', component: RolesComponent, canActivate: [AuthorizeGuard] }
+      { path: 'app-roles/:id', component: RolesComponent, canActivate: [AuthorizeGuard] },
+      { path: 'moderator', component: ModeratorComponent, canActivate: [AuthorizeGuard] }
     ])
   ],
   providers: [

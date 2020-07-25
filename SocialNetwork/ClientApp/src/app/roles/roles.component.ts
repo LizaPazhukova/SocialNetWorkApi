@@ -30,6 +30,7 @@ export class RolesComponent implements OnInit {
   }
 
   onSubmit(roleForm: NgForm) {
+    console.log(roleForm);
     let selectedRoles: string[] = [];
     Object.keys(roleForm.controls).forEach(key => {
       if (roleForm.controls[key].value) {
@@ -38,6 +39,10 @@ export class RolesComponent implements OnInit {
     });
 
     this.rolesService.updateUserRoles(this.id, selectedRoles).subscribe(() => alert("Succesfully saved"));
+  }
+
+  isAnySelected(roleForm: NgForm) {
+    return !Object.keys(roleForm.controls).some(key => roleForm.controls[key].value);
   }
 }
 

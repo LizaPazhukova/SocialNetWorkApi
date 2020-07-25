@@ -46,5 +46,13 @@ namespace SocialNetwork.Controllers
             IEnumerable<MessageDTO> messages = _messageService.GetUserMessagesWithOneUser(fromUserId, toUserId);
             return messages;
         }
+
+        [HttpGet("allMessages")]
+        public IEnumerable<MessageDTO> GetAllMessages()
+        {
+
+            IEnumerable<MessageDTO> messages = _messageService.GetAllMessages();
+            return messages;
+        }
     }
 }

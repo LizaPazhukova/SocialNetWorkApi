@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using SocialNetwork.Dal;
 using SocialNetwork.Dal.Models;
-using SocialNetwork.Dal.Repositories;
 using SocialNetwork.Logic.DTO;
 using SocialNetwork.Logic.Interfaces;
 using System;

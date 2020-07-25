@@ -1,10 +1,13 @@
 <ul class="navbar-nav" *ngIf="isAuthenticated | async">
-    <li class="nav-item">
-        <a  class="nav-link text-dark" [routerLink]='["/authentication/profile"]' title="Manage">Your Profile</a>
-    </li>
-    <li class="nav-item">
-        <a  class="nav-link text-dark" [routerLink]='["/authentication/logout"]' [state]='{ local: true }' title="Logout">Logout</a>
-    </li>
+  <li *ngIf="isModerator()" class="nav-item" [routerLinkActive]="['link-active']">
+     <a class="nav-link text-dark" [routerLink]="['/moderator']">Moderate</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link text-dark" [routerLink]='["/authentication/profile"]' title="Manage">Your Profile</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link text-dark" [routerLink]='["/authentication/logout"]' [state]='{ local: true }' title="Logout">Logout</a>
+  </li>
 </ul>
 <ul class="navbar-nav" *ngIf="!(isAuthenticated | async)">
   <li class="nav-item">

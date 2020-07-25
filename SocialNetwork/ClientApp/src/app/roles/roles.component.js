@@ -30,6 +30,7 @@ let RolesComponent = class RolesComponent {
         this.rolesService.getRolesByUserId(id).subscribe(result => this.userRoles = result);
     }
     onSubmit(roleForm) {
+        console.log(roleForm);
         let selectedRoles = [];
         Object.keys(roleForm.controls).forEach(key => {
             if (roleForm.controls[key].value) {
@@ -37,6 +38,9 @@ let RolesComponent = class RolesComponent {
             }
         });
         this.rolesService.updateUserRoles(this.id, selectedRoles).subscribe(() => alert("Succesfully saved"));
+    }
+    isAnySelected(roleForm) {
+        return !Object.keys(roleForm.controls).some(key => roleForm.controls[key].value);
     }
 };
 RolesComponent = __decorate([

@@ -20,13 +20,13 @@ export class UserService {
   }
 
   getUsers(searchUser: searchUser): Observable<User[]>{
-    return this.http.post<User[]>(this.baseUrl + 'api/home/users', searchUser);
+    return this.http.post<User[]>(this.baseUrl + 'api/users', searchUser);
   }
   getCurrentUser(): Observable<User> {
-    return this.http.get<User>(this.baseUrl + 'api/home/currentUser');
+    return this.http.get<User>(this.baseUrl + 'api/users/currentUser');
   }
   getUser(id: number): Observable<User> {
-    return this.http.get<User>(this.baseUrl + 'api/home/user/' + id);
+    return this.http.get<User>(this.baseUrl + 'api/users/' + id);
   }
 }
 

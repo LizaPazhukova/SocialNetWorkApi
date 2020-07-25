@@ -28,4 +28,7 @@ export class MessageService {
   getSelectedUserMessages(fromUserId: number, toUserId: number): Observable<Message[]> {
     return this.http.get<Message[]>(this.baseUrl + 'api/message/messagesWithOneUser/'+fromUserId+'/'+toUserId);
   }
+  getAllMessages(): Observable<Message[]> {
+    return this.http.get<Message[]>(this.baseUrl + 'api/message/allMessages');
+  }
 }

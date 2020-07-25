@@ -33,6 +33,9 @@ let MessageService = class MessageService {
     getSelectedUserMessages(fromUserId, toUserId) {
         return this.http.get(this.baseUrl + 'api/message/messagesWithOneUser/' + fromUserId + '/' + toUserId);
     }
+    getAllMessages() {
+        return this.http.get(this.baseUrl + 'api/message/allMessages');
+    }
 };
 MessageService = __decorate([
     core_1.Injectable({

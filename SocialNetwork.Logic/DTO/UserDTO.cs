@@ -12,6 +12,7 @@ namespace SocialNetwork.Logic.DTO
         public string LastName { get; set; }
         public string FullName { get { return $"{FirstName} {LastName}"; } }
         public string PhoneNumber { get; set; }
+        public List<string> Roles { get; set; }
         public string City { get; set; }
         public DateTime? BirthDate { get; set; }
         public Gender? Gender { get; set; }

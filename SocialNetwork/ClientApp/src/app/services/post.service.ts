@@ -20,18 +20,18 @@ export class PostService {
   }
 
   getPosts(UserId: number): Observable<Post[]> {
-    return this.http.get<Post[]>(this.url + 'api/home/posts/'+UserId);
+    return this.http.get<Post[]>(this.url + 'api/posts/'+UserId);
   }
   createPost(post: Post): Observable<Post> {
-    return this.http.post<Post>(this.url + 'api/home/post/', post);
+    return this.http.post<Post>(this.url + 'api/posts', post);
   }
   likePost(like: Like): Observable<Like> {
-    return this.http.post<Like>(this.url + 'api/home/like/', like);
+    return this.http.post<Like>(this.url + 'api/posts/like/', like);
   }
   createComment(comment: Comment): Observable<Comment> {
-    return this.http.post<Comment>(this.url + 'api/home/comment', comment);
+    return this.http.post<Comment>(this.url + 'api/posts/comment', comment);
   }
   deletePost(id: number) {
-    return this.http.delete<Post>(this.url + 'api/home/post/'+id);
+    return this.http.delete<Post>(this.url + 'api/posts/'+id);
   }
 }

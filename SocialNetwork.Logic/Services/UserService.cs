@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using SocialNetwork.Dal;
 using SocialNetwork.Dal.Models;
 using SocialNetwork.Dal.Repositories;
@@ -8,22 +9,31 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace SocialNetwork.Logic.Services
 {
     public class UserService : IUserService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly UserManager<AppUser> _userManager;
         private IMapper _mapper;
-        public UserService(IUnitOfWork unitOfWork, IMapper mapper)
+        public UserService(IUnitOfWork unitOfWork, IMapper mapper, UserManager<AppUser> userManager)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _userManager = userManager;
         }
-        public UserDTO GetUser(int id)
+        public async Task<UserDTO> GetUser(int id)
         {
             var user = _unitOfWork.Users.GetById(id);
-            return _mapper.Map<UserDTO>(user);
+
+            var roles = await _userManager.GetRolesAsync(user);
+
+            var userDto = _mapper.Map<UserDTO>(user);
+            userDto.Roles = roles.ToList();
+
+            return userDto;
         }
         public IEnumerable<UserDTO> GetUsers(SearchUser userSearchParams)
         {

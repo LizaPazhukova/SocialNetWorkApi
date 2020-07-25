@@ -25,19 +25,19 @@ let PostService = class PostService {
         };
     }
     getPosts(UserId) {
-        return this.http.get(this.url + 'api/home/posts/' + UserId);
+        return this.http.get(this.url + 'api/posts/' + UserId);
     }
     createPost(post) {
-        return this.http.post(this.url + 'api/home/post/', post);
+        return this.http.post(this.url + 'api/posts', post);
     }
     likePost(like) {
-        return this.http.post(this.url + 'api/home/like/', like);
+        return this.http.post(this.url + 'api/posts/like/', like);
     }
     createComment(comment) {
-        return this.http.post(this.url + 'api/home/comment', comment);
+        return this.http.post(this.url + 'api/posts/comment', comment);
     }
     deletePost(id) {
-        return this.http.delete(this.url + 'api/home/post/' + id);
+        return this.http.delete(this.url + 'api/posts/' + id);
     }
 };
 PostService = __decorate([

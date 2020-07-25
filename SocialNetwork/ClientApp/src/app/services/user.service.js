@@ -25,13 +25,13 @@ let UserService = class UserService {
         };
     }
     getUsers(searchUser) {
-        return this.http.post(this.baseUrl + 'api/home/users', searchUser);
+        return this.http.post(this.baseUrl + 'api/users', searchUser);
     }
     getCurrentUser() {
-        return this.http.get(this.baseUrl + 'api/home/currentUser');
+        return this.http.get(this.baseUrl + 'api/users/currentUser');
     }
     getUser(id) {
-        return this.http.get(this.baseUrl + 'api/home/user/' + id);
+        return this.http.get(this.baseUrl + 'api/users/' + id);
     }
 };
 UserService = __decorate([

@@ -9,6 +9,7 @@ export class User {
   gender: Gender;
   phoneNumber: string;
   friends: User[];
+  roles: string[];
 }
 export enum Gender {
   Male,

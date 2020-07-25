@@ -45,6 +45,7 @@
     <None Remove="ClientApp\src\app\models\searchUser.ts" />
     <None Remove="ClientApp\src\app\models\UpdateUserRoles.ts" />
     <None Remove="ClientApp\src\app\models\users.ts" />
+    <None Remove="ClientApp\src\app\moderator\moderator.component.ts" />
     <None Remove="ClientApp\src\app\posts\post.component.ts" />
     <None Remove="ClientApp\src\app\roles\roles.component.ts" />
     <None Remove="ClientApp\src\app\services\friendRequest.service.ts" />
@@ -71,6 +72,7 @@
     <TypeScriptCompile Include="ClientApp\src\app\models\searchUser.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\updateUserRoles.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\users.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\moderator\moderator.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\posts\post.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\roles\roles.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\services\friendRequest.service.ts" />
