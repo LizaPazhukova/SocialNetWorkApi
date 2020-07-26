@@ -11,20 +11,24 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./login-menu.component.css']
 })
 export class LoginMenuComponent implements OnInit {
-  public isAuthenticated: Observable<boolean>;
+  public isAuthenticated : boolean = true;
   public userName: Observable<string>;
   public user: User;
+  public isModerator: boolean;
 
   constructor(private authorizeService: AuthorizeService,
     private userService: UserService) { }
 
   ngOnInit() {
-    this.isAuthenticated = this.authorizeService.isAuthenticated();
+    this.authorizeService.isAuthenticated().subscribe(val => {
+      this.isAuthenticated = val;
+      if (val) {
+        this.userService.getCurrentUser().subscribe(result => {
+          this.user = result;
+          this.isModerator = this.user && this.user.roles && this.user.roles.includes("Moderator");
+        });
+      }
+    });
     this.userName = this.authorizeService.getUser().pipe(map(u => u && u.name));
-    this.userService.getCurrentUser().subscribe(result => this.user = result);
-  }
-
-  isModerator() {
-    return this.user && this.user.roles && this.user.roles.includes("Moderator");
   }
 }

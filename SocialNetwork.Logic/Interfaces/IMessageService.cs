@@ -1,9 +1,5 @@
-﻿using SocialNetwork.Dal.Models;
-using SocialNetwork.Logic.DTO;
-using System;
+﻿using SocialNetwork.Logic.DTO;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace SocialNetwork.Logic.Interfaces
 {
@@ -13,5 +9,7 @@ namespace SocialNetwork.Logic.Interfaces
         IEnumerable<MessageDTO> GetUserMessages(int currentUserId);
         IEnumerable<MessageDTO> GetUserMessagesWithOneUser(int otherUserId, int curentUserId);
         IEnumerable<MessageDTO> GetAllMessages();
+        void UpdateMessage(MessageDTO message);
+        void Delete(int messageId);
     }
 }

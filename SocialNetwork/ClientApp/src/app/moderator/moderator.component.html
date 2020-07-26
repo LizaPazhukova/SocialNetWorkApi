@@ -11,7 +11,7 @@
         <p *ngIf="!canEditMessage[i]">
           {{message.body}}
         </p>
-        <textarea type="text" value="{{message.body}}" style="width: 800px" *ngIf="canEditMessage[i]" (keyup.enter)="updateMessage(message.id, message.body)"></textarea>
+        <textarea type="text" [(ngModel)]="message.body" style="width: 800px" *ngIf="canEditMessage[i]" (keyup.enter)="updateMessage(message.id, message.body)"></textarea>
       </div>
       <div class="row moderate_panel"style="margin-top: 10px">
         <button class="btn btn-light" (click)="delete(message.id)"><i class="fa fa-trash"></i> Delete</button>

@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@angular/core");
+const message_1 = require("../models/message");
 const message_service_1 = require("../services/message.service");
 let ModeratorComponent = class ModeratorComponent {
     constructor(messageService) {
@@ -20,7 +21,10 @@ let ModeratorComponent = class ModeratorComponent {
         this.getAllMessages();
     }
     updateMessage(id, text) {
-        alert(id);
+        let message = new message_1.Message();
+        message.Id = id;
+        message.body = text;
+        this.messageService.updateMessage(message).subscribe(() => { this.getAllMessages(); this.canEditMessage = []; });
     }
     delete(id) {
         this.messageService.deleteMessage(id).subscribe(() => this.getAllMessages());

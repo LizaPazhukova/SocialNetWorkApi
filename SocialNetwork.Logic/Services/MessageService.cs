@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using SocialNetwork.Dal;
 using SocialNetwork.Dal.Models;
-using SocialNetwork.Dal.Repositories;
 using SocialNetwork.Logic.DTO;
+using SocialNetwork.Logic.Exceptions;
 using SocialNetwork.Logic.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -57,6 +57,36 @@ namespace SocialNetwork.Logic.Services
             var messages = _unitOfWork.Messages.GetAll(x => x.FromUser);
 
             return _mapper.Map<IEnumerable<MessageDTO>>(messages);
+        }
+
+        public void UpdateMessage(MessageDTO messageDto)
+        {
+            var message = _unitOfWork.Messages.GetById(messageDto.Id);
+
+            if (message == null)
+            {
+                throw new NotFoundException($"Message with {messageDto.Id} doesn't exist");
+            }
+
+            message.Body = messageDto.Body;
+
+            _unitOfWork.Messages.Update(message);
+
+            _unitOfWork.Save();
+        }
+
+        public void Delete(int messageId)
+        {
+            var message = _unitOfWork.Messages.GetById(messageId);
+
+            if(message == null)
+            {
+                throw new NotFoundException($"Message with {messageId} doesn't exist");
+            }
+
+            _unitOfWork.Messages.Delete(message);
+
+            _unitOfWork.Save();
         }
     }
 }

@@ -18,7 +18,10 @@ export class ModeratorComponent implements OnInit {
   }
 
   updateMessage(id: number, text: string) {
-    alert(id);
+    let message = new Message();
+    message.Id = id;
+    message.body = text;
+    this.messageService.updateMessage(message).subscribe(() => { this.getAllMessages(); this.canEditMessage = [] });
   }
 
   delete(id: number) {

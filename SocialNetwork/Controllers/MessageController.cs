@@ -54,5 +54,21 @@ namespace SocialNetwork.Controllers
             IEnumerable<MessageDTO> messages = _messageService.GetAllMessages();
             return messages;
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteMessage(int id)
+        {
+            _messageService.Delete(id);
+
+            return NoContent();
+        }
+
+        [HttpPut("update")]
+        public IActionResult UpdateMessage(MessageDTO messageDto)
+        {
+            _messageService.UpdateMessage(messageDto);
+
+            return NoContent();
+        }
     }
 }

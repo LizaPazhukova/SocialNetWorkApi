@@ -40,7 +40,7 @@ let MessageService = class MessageService {
         return this.http.get(this.baseUrl + 'api/message/allMessages');
     }
     deleteMessage(id) {
-        return this.http.delete(this.baseUrl + 'api/message/delete/' + id);
+        return this.http.delete(this.baseUrl + 'api/message/' + id);
     }
 };
 MessageService = __decorate([
