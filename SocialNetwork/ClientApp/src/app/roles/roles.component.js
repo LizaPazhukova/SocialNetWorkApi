@@ -30,7 +30,6 @@ let RolesComponent = class RolesComponent {
         this.rolesService.getRolesByUserId(id).subscribe(result => this.userRoles = result);
     }
     onSubmit(roleForm) {
-        console.log(roleForm);
         let selectedRoles = [];
         Object.keys(roleForm.controls).forEach(key => {
             if (roleForm.controls[key].value) {

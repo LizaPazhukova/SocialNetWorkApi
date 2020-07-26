@@ -30,7 +30,6 @@ export class RolesComponent implements OnInit {
   }
 
   onSubmit(roleForm: NgForm) {
-    console.log(roleForm);
     let selectedRoles: string[] = [];
     Object.keys(roleForm.controls).forEach(key => {
       if (roleForm.controls[key].value) {
