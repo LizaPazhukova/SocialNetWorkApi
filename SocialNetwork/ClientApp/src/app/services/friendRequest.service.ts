@@ -34,5 +34,8 @@ export class FriendRequestService {
   getFriends(): Observable<User[]> {
     return this.http.get <User[]>(this.baseUrl + 'api/friendRequest/friends/');
   }
+  getFriendRequestCount(): Observable<number> {
+    return this.http.get<number>(this.baseUrl + 'api/friendRequest/count');
+  }
 }
 

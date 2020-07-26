@@ -63,5 +63,10 @@ namespace SocialNetwork.Logic.Services
             _unitOfWork.Requests.Create(request);
             _unitOfWork.Save();
         }
+
+        public int CountFriendRequests(int userId)
+        {
+            return _unitOfWork.Requests.GetAll().Where(x => x.ToUserId == userId).Count();
+        }
     }
 }

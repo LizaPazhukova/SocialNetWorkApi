@@ -58,5 +58,13 @@ namespace SocialNetwork.Controllers
             IEnumerable<UserDTO> friends = _friendRequestService.GetUserFriends(currentUserId);
             return friends;
         }
+
+        [HttpGet("count")]
+        public int CountFriendRequests()
+        {
+            var currentUserId = Convert.ToInt32(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            return _friendRequestService.CountFriendRequests(currentUserId);
+        }
     }
 }

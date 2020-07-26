@@ -13,6 +13,6 @@ namespace SocialNetwork.Logic.Interfaces
         void AcceptRequest(int id);
         void RejectRequest(int id);
         IEnumerable<UserDTO> GetUserFriends(int currentUserId);
-
+        int CountFriendRequests(int userId);
     }
 }

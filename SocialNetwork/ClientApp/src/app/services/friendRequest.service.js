@@ -40,6 +40,9 @@ let FriendRequestService = class FriendRequestService {
     getFriends() {
         return this.http.get(this.baseUrl + 'api/friendRequest/friends/');
     }
+    getFriendRequestCount() {
+        return this.http.get(this.baseUrl + 'api/friendRequest/count');
+    }
 };
 FriendRequestService = __decorate([
     core_1.Injectable({
