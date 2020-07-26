@@ -25,10 +25,16 @@ export class MessageService {
   sendMessage(message: Message): Observable<Message> {
     return this.http.post<Message>(this.baseUrl + 'api/message/send', message);
   }
+  updateMessage(message: Message): Observable<Message> {
+    return this.http.put<Message>(this.baseUrl + 'api/message/update', message);
+  }
   getSelectedUserMessages(fromUserId: number, toUserId: number): Observable<Message[]> {
     return this.http.get<Message[]>(this.baseUrl + 'api/message/messagesWithOneUser/'+fromUserId+'/'+toUserId);
   }
   getAllMessages(): Observable<Message[]> {
     return this.http.get<Message[]>(this.baseUrl + 'api/message/allMessages');
+  }
+  deleteMessage(id: number): Observable<void> {
+    return this.http.delete<void>(this.baseUrl + 'api/message/delete/'+id);
   }
 }

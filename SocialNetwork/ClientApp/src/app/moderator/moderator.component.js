@@ -14,9 +14,19 @@ const message_service_1 = require("../services/message.service");
 let ModeratorComponent = class ModeratorComponent {
     constructor(messageService) {
         this.messageService = messageService;
+        this.canEditMessage = [];
     }
     ngOnInit() {
-        this.messageService.getAllMessages().subscribe(result => { this.messages = result; console.log(result); }, error => {
+        this.getAllMessages();
+    }
+    updateMessage(id, text) {
+        alert(id);
+    }
+    delete(id) {
+        this.messageService.deleteMessage(id).subscribe(() => this.getAllMessages());
+    }
+    getAllMessages() {
+        this.messageService.getAllMessages().subscribe(result => { this.messages = result; }, error => {
             console.log(error);
         });
     }

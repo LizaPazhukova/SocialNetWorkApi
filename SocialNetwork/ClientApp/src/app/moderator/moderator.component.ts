@@ -9,13 +9,26 @@ import { MessageService } from "../services/message.service";
 })
 export class ModeratorComponent implements OnInit {
   public messages: Message[];
+  public canEditMessage: boolean[] = [];
 
   constructor(private messageService: MessageService) { }
 
   ngOnInit() {
-    this.messageService.getAllMessages().subscribe(result => { this.messages = result; console.log(result) },
+    this.getAllMessages();
+  }
+
+  updateMessage(id: number, text: string) {
+    alert(id);
+  }
+
+  delete(id: number) {
+    this.messageService.deleteMessage(id).subscribe(() => this.getAllMessages());
+  }
+
+  getAllMessages() {
+    this.messageService.getAllMessages().subscribe(result => { this.messages = result; },
       error => {
         console.log(error);
-    });
+      });
   }
 }

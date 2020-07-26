@@ -30,11 +30,17 @@ let MessageService = class MessageService {
     sendMessage(message) {
         return this.http.post(this.baseUrl + 'api/message/send', message);
     }
+    updateMessage(message) {
+        return this.http.put(this.baseUrl + 'api/message/update', message);
+    }
     getSelectedUserMessages(fromUserId, toUserId) {
         return this.http.get(this.baseUrl + 'api/message/messagesWithOneUser/' + fromUserId + '/' + toUserId);
     }
     getAllMessages() {
         return this.http.get(this.baseUrl + 'api/message/allMessages');
+    }
+    deleteMessage(id) {
+        return this.http.delete(this.baseUrl + 'api/message/delete/' + id);
     }
 };
 MessageService = __decorate([

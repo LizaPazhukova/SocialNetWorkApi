@@ -1,15 +1,23 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 <p>User messages</p>
 
 <div class="inbox_chat">
-  <div class="chat_list" *ngFor="let message of messages">
+  <div class="chat_list" *ngFor="let message of messages; let i = index;">
     <div class="chat_people">
       <div class="chat_img"> <img class="rounded-circle" width="45" height="45" src="data:image/png;base64,{{message.fromUser.avatar}}"></div>
       <div class="chat_ib">
         <h5>{{message.fromUser.fullName}} <span class="chat_date">{{message.date | date}}</span></h5>
-        <p>
+        <p *ngIf="!canEditMessage[i]">
           {{message.body}}
         </p>
+        <textarea type="text" value="{{message.body}}" style="width: 800px" *ngIf="canEditMessage[i]" (keyup.enter)="updateMessage(message.id, message.body)"></textarea>
+      </div>
+      <div class="row moderate_panel"style="margin-top: 10px">
+        <button class="btn btn-light" (click)="delete(message.id)"><i class="fa fa-trash"></i> Delete</button>
+        <button class="btn btn-light" (click)="canEditMessage[i] = !canEditMessage[i]" style="margin-left: 30px"><i class="fa fa-pencil"></i> Edit</button>
       </div>
     </div>
   </div>
 </div>
+
