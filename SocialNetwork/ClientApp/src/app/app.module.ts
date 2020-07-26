@@ -23,6 +23,7 @@ import { LoginComponent } from 'src/api-authorization/login/login.component';
 import { FormModalComponent } from './form-modal/form-modal.component';
 import { FriendRequestComponent } from './friend/friend-request.component';
 import { ModeratorComponent } from './moderator/moderator.component';
+import { InterceptorService } from './services/interceptor.service';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { ModeratorComponent } from './moderator/moderator.component';
     ])
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true }
   ],
   bootstrap: [AppComponent],
   entryComponents: [

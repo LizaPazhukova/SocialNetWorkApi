@@ -25,7 +25,6 @@ export class LoginMenuComponent implements OnInit {
   }
 
   isModerator() {
-
     return this.user && this.user.roles && this.user.roles.includes("Moderator");
   }
 }
