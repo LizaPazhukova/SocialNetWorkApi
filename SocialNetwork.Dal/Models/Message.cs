@@ -9,6 +9,7 @@ namespace SocialNetwork.Dal.Models
         public int? FromUserId { get; set; }
         public int ToUserId { get; set; }
         public string Body { get; set; }
+        public bool isReaded { get; set; }
         public DateTime Date { get; set; }
         [ForeignKey ("FromUserId")]
         public AppUser FromUser { get; set; }

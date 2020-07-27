@@ -6,63 +6,86 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 using System.Linq;
+using AutoMapper;
+using SocialNetwork.Logic.Interfaces;
+using SocialNetwork.Logic.MappingProfiles;
+using FluentAssertions;
+using SocialNetwork.Logic.Exceptions;
+
 namespace SocialNetwork.Tests
 {
     public class MessageServiceTests
     {
+        private Mock<IUnitOfWork> _mockUnitOfWork;
+        private IMessageService _messageService;
+        private IMapper _mapper;
+        public MessageServiceTests()
+        {
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile<AutoMapperProfile>();
+            });
+            _mapper = new Mapper(config);
+            _mockUnitOfWork = new Mock<IUnitOfWork>();
+            _mockUnitOfWork.Setup(m => m.Messages.GetAll(x => x.FromUser)).Returns(GetTestMessages());
+            _messageService = new MessageService(_mockUnitOfWork.Object, _mapper);
+        }
         [Fact]
         public void GetUserMessages_ListWithTwoMessages_ReturnOneMessage()
         {
             // Arrange
-            var mock = new Mock<IUnitOfWork>();
-            mock.Setup(repo => repo.Messages.GetAll(x =>x.FromUser)).Returns(GetTestMessages());
-            var messageService = new MessageService(mock.Object);
+            int userId = 2;
 
             // Act
-            int id = 1;
-            var result = messageService.GetUserMessages(id);
+            var result = _messageService.GetUserMessages(userId);
 
             // Assert
-            
-            Assert.Equal(1, result.FirstOrDefault().Id);
+            result.Count().Should().Be(1);
+            result.FirstOrDefault().Id.Should().Be(1);
+        }
+
+        [Fact]
+        public void SendMessage_CreateMessage_SaveToTheDB()
+        {
+            int fromUser = 1;
+            int toUser = 2;
+            string text = "Message";
+
+            _messageService.SendMessage(toUser, fromUser, text);
+
+            _mockUnitOfWork.Verify(m => m.Messages.Create(It.Is<Message>(m => m.ToUserId == toUser && m.FromUserId == fromUser && m.Body == text)), Times.Once());
+            _mockUnitOfWork.Verify(m => m.Save(), Times.Once());
+        }
+
+        [Fact]
+        public void DeleteMessage_WithExistingId_RemoveFromDb()
+        {
+            int userId = 1;
+            _mockUnitOfWork.Setup(m => m.Messages.GetById(userId)).Returns(new Message { Id = 1, Body = "Tom", ToUserId = 1, FromUserId = 2 });
+
+            _messageService.Delete(userId);
+
+            _mockUnitOfWork.Verify(m => m.Messages.Delete(It.Is<Message>(m => m.Id == userId)), Times.Once());
+            _mockUnitOfWork.Verify(m => m.Save(), Times.Once());
+        }
+        [Fact]
+        public void DeleteMessage_WithNotExistingId_ThrowException()
+        {
+            int userId = 100;
+            _mockUnitOfWork.Setup(m => m.Messages.GetById(userId)).Returns((Message)null);
+
+            Action act = () => _messageService.Delete(userId);
+
+            act.Should().Throw<NotFoundException>();
         }
         private IQueryable<Message> GetTestMessages()
         {
             var messages = new List<Message>
-            {
-                new Message { Id=1, Body="Tom", ToUserId=1, FromUserId = 2 },
-                new Message { Id=2, Body="Liza", ToUserId=3, FromUserId = 1},
-            };
+                {
+                    new Message { Id=1, Body="Tom", ToUserId = 1, FromUserId = 2 },
+                    new Message { Id=2, Body="Liza", ToUserId = 3, FromUserId = 1},
+                };
             return messages.AsQueryable();
-
-        }
-        [Fact]
-        public void SendMessage_CreateMessage_SaveToTheDB()
-        {
-            var mockSet = new Mock<IRepository<Message>>();
-            var mockContext = new Mock<IUnitOfWork>();
-            mockContext.Setup(m => m.Messages).Returns(mockSet.Object);
-            var service = new MessageService(mockContext.Object);
-            
-            service.SendMessage(1, 2, "Message");
-
-            mockSet.Verify(m => m.Create(It.Is<Message>(m=>m.ToUserId==1&&m.FromUserId==2&&m.Body=="Message")), Times.Once());
-            mockContext.Verify(m => m.Save(), Times.Once());
-        }
-        [Fact]
-        public void GetUserMessagesWithOneUser_ListWithTwoMessages_ReturnOneMessage()
-        {
-            // Arrange
-            var mock = new Mock<IUnitOfWork>();
-            mock.Setup(repo => repo.Messages.GetAll(x => x.FromUser)).Returns(GetTestMessages());
-            var messageService = new MessageService(mock.Object);
-
-            // Act
-            var result = messageService.GetUserMessagesWithOneUser(1, 2);
-
-            // Assert
-
-            Assert.Equal(1, result.FirstOrDefault().Id);
         }
     }
 }

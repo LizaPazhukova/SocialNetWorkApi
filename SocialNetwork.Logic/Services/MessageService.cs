@@ -61,6 +61,11 @@ namespace SocialNetwork.Logic.Services
 
         public void UpdateMessage(MessageDTO messageDto)
         {
+            if(messageDto == null)
+            {
+                throw new ArgumentNullException("Message shouldn't be null");
+            }
+
             var message = _unitOfWork.Messages.GetById(messageDto.Id);
 
             if (message == null)
@@ -85,6 +90,24 @@ namespace SocialNetwork.Logic.Services
             }
 
             _unitOfWork.Messages.Delete(message);
+
+            _unitOfWork.Save();
+        }
+
+        public int CountUnreadedMessages(int currentUserId)
+        {
+            return _unitOfWork.Messages.GetAll().Where(x =>x.ToUserId == currentUserId && x.isReaded == false).Count();
+        }
+
+        public void SetUnreadedMessages(int currentUserId)
+        {
+            var unreadedMessages = _unitOfWork.Messages.GetAll().Where(x => x.ToUserId == currentUserId && x.isReaded == false);
+
+            foreach(var message in unreadedMessages)
+            {
+                message.isReaded = true;
+                _unitOfWork.Messages.Update(message);
+            }
 
             _unitOfWork.Save();
         }

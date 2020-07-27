@@ -21,6 +21,9 @@ let MessageComponent = class MessageComponent {
     ngOnInit() {
         this.messageService.getMessages().subscribe(result => {
             this.messages = result;
+            if (result && result.some(x => x.isReaded == false)) {
+                this.messageService.setUnreadedMessages().subscribe();
+            }
         }, error => console.error(error));
         this.userService.getCurrentUser().subscribe(result => { this.user = result; });
     }

@@ -70,5 +70,21 @@ namespace SocialNetwork.Controllers
 
             return NoContent();
         }
+
+        [HttpGet("count")]
+        public int CountUnreadedMessages()
+        {
+            var currentUserId = Convert.ToInt32(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            return _messageService.CountUnreadedMessages(currentUserId);
+        }
+
+        [HttpGet("setUnreadedMessages")]
+        public void SetUnreadedMessages()
+        {
+            var currentUserId = Convert.ToInt32(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            _messageService.SetUnreadedMessages(currentUserId);
+        }
     }
 }

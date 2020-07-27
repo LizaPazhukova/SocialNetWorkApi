@@ -3,11 +3,11 @@ using SocialNetwork.Dal;
 using SocialNetwork.Dal.Models;
 using SocialNetwork.Dal.Repositories;
 using SocialNetwork.Logic.DTO;
+using SocialNetwork.Logic.Exceptions;
 using SocialNetwork.Logic.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace SocialNetwork.Logic.Services
 {
@@ -25,6 +25,10 @@ namespace SocialNetwork.Logic.Services
         public void AcceptRequest(int id)
         {
             var request = _unitOfWork.Requests.GetById(id);
+            if(request == null)
+            {
+                throw new NotFoundException($"Request with id {id} doesn't exist");
+            }
             var user1 = _unitOfWork.Users.GetById(request.FromUserId);
             var user2 = _unitOfWork.Users.GetById(request.ToUserId);
             user1.Friends.Add(user2);
@@ -48,6 +52,11 @@ namespace SocialNetwork.Logic.Services
         public void RejectRequest(int id)
         {
             var request = _unitOfWork.Requests.GetById(id);
+            if (request == null)
+            {
+                throw new NotFoundException($"Request with id {id} doesn't exist");
+            }
+
             _unitOfWork.Requests.Delete(request);
             _unitOfWork.Save();
         }

@@ -11,5 +11,7 @@ namespace SocialNetwork.Logic.Interfaces
         IEnumerable<MessageDTO> GetAllMessages();
         void UpdateMessage(MessageDTO message);
         void Delete(int messageId);
+        int CountUnreadedMessages(int currentUserId);
+        void SetUnreadedMessages(int currentUserId);
     }
 }

@@ -5,6 +5,7 @@ export class Message {
   fromUserId: number;
   toUserId: number;
   body: string;
+  isReaded: boolean;
   Date: number;
   fromUser: User;
   toUser: User;

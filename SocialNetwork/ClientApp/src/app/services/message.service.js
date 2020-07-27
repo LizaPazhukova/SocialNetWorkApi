@@ -42,6 +42,12 @@ let MessageService = class MessageService {
     deleteMessage(id) {
         return this.http.delete(this.baseUrl + 'api/message/' + id);
     }
+    countUnreadedMessages() {
+        return this.http.get(this.baseUrl + 'api/message/count');
+    }
+    setUnreadedMessages() {
+        return this.http.get(this.baseUrl + 'api/message/setUnreadedMessages');
+    }
 };
 MessageService = __decorate([
     core_1.Injectable({

@@ -32,7 +32,7 @@ namespace SocialNetwork.Controllers
         public ActionResult<PostDTO> Create(PostDTO post)
         {
             var userId = Convert.ToInt32(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            //return Ok(_postService.Create(userId, post.Text)); //
+        
             _postService.Create(userId, post.Text);
             return CreatedAtAction("Get", new { id = post.Id }, post);
         }
@@ -56,7 +56,7 @@ namespace SocialNetwork.Controllers
         public IActionResult CreateComment(CommentDTO comment)
         {
             var userId = Convert.ToInt32(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            _postService.CreateComment(comment.PostId, userId, comment.Text);
+            _postService.CreateComment(comment, userId);
             return Ok();
         }
     }

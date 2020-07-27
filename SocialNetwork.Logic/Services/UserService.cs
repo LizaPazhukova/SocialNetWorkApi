@@ -4,6 +4,7 @@ using SocialNetwork.Dal;
 using SocialNetwork.Dal.Models;
 using SocialNetwork.Dal.Repositories;
 using SocialNetwork.Logic.DTO;
+using SocialNetwork.Logic.Exceptions;
 using SocialNetwork.Logic.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -27,6 +28,11 @@ namespace SocialNetwork.Logic.Services
         public async Task<UserDTO> GetUser(int id)
         {
             var user = _unitOfWork.Users.GetById(id);
+
+            if(user == null)
+            {
+                throw new NotFoundException($"User with id {id} doesn't exist");
+            }
 
             var roles = await _userManager.GetRolesAsync(user);
 

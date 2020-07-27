@@ -2,6 +2,7 @@
 using SocialNetwork.Dal;
 using SocialNetwork.Dal.Models;
 using SocialNetwork.Logic.DTO;
+using SocialNetwork.Logic.Exceptions;
 using SocialNetwork.Logic.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -35,15 +36,25 @@ namespace SocialNetwork.Logic.Services
             _unitOfWork.Save();
             return _mapper.Map<PostDTO>(post);
         }
-        public void CreateComment(int id, int userId, string text)
+        public void CreateComment(CommentDTO commentDto, int userId)
         {
-            var post = _unitOfWork.Posts.GetById(id);
+            if (commentDto == null)
+            {
+                throw new ArgumentNullException("Comment shouldn't be null");
+            }
+
+            var post = _unitOfWork.Posts.GetById(commentDto.PostId);
+            if(post == null)
+            {
+                throw new Exception($"Can't create comment on post with {commentDto.PostId}. Post doesn't exists");
+            }
+
             Comment comment = new Comment()
             {
-                Text = text,
+                Text = commentDto.Text,
                 AppUserId = userId,
                 Date = DateTime.Now,
-                PostId = id
+                PostId = commentDto.PostId
             };
             _unitOfWork.Comments.Create(comment);
             post.Comments.Add(comment);
@@ -74,6 +85,11 @@ namespace SocialNetwork.Logic.Services
         public void Delete(int id)
         {
             var post = _unitOfWork.Posts.GetById(id);
+            if(post == null)
+            {
+                throw new NotFoundException($"Post with id {id} doesn't exists");
+            }
+
             _unitOfWork.Posts.Delete(post);
             _unitOfWork.Save();
         }
