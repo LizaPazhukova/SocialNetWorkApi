@@ -28,23 +28,6 @@ namespace SocialNetwork.Dal
                     userManager.AddToRoleAsync(user, "Admin").Wait();
                 }
             }
-
-
-            //if (userManager.FindByEmailAsync("alex@localhost").Result == null)
-            //{
-            //    User user = new User();
-            //    user.UserName = "alex@localhost";
-            //    user.Email = "alex@localhost";
-            //    user.FirstName = "Alex";
-            //    user.LastName = "Calingasan";
-
-            //    IdentityResult result = userManager.CreateAsync(user, "P@ssw0rd1!").Result;
-
-            //    if (result.Succeeded)
-            //    {
-            //        userManager.AddToRoleAsync(user, "Admin").Wait();
-            //    }
-            //}
         }
 
         private static void SeedRoles(RoleManager<AppRole> roleManager)

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -39,7 +40,6 @@ namespace SocialNetwork.Controllers
             return roles;
         }
 
-     //   [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> AssignRolesToUser(string id, UpdateUserRolesDTO dto)
         {
@@ -81,27 +81,5 @@ namespace SocialNetwork.Controllers
 
             return Ok();
         }
-        //public async Task<IActionResult> Edit(string userId)
-        //{
-
-        //    // получаем пользователя
-        //    AppUser user = await _userManager.FindByIdAsync(userId);
-        //    if (user != null)
-        //    {
-        //        // получем список ролей пользователя
-        //        var userRoles = await _userManager.GetRolesAsync(user);
-        //        var allRoles = _roleManager.Roles.ToList();
-        //        ChangeRoleViewModel model = new ChangeRoleViewModel
-        //        {
-        //            UserId = user.Id,
-        //            UserEmail = user.Email,
-        //            UserRoles = userRoles,
-        //            AllRoles = allRoles
-        //        };
-        //        return View(model);
-        //    }
-
-        //    return NotFound();
-        //}
     }
 }

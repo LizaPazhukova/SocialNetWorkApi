@@ -21,8 +21,7 @@ export class UserComponent implements OnInit {
   private maxAge: number;
   private gender: Gender;
   public currentUser: User;
-
-  
+  public isAdmin: boolean; 
 
   constructor(
     private FriendRequestService: FriendRequestService,
@@ -39,6 +38,7 @@ export class UserComponent implements OnInit {
     }, error => console.error(error));
     this.UserService.getCurrentUser().subscribe(result => {
       this.currentUser = result;
+      this.isAdmin = this.currentUser && this.currentUser.roles && this.currentUser.roles.includes("Admin");
     }, error => console.error(error));
   }
   private createForm() {
@@ -73,6 +73,7 @@ export class UserComponent implements OnInit {
     
     return this.friends.some(x => x.id == user.id);
   }
+
   openFormModal(id: number) {
     const modalRef = this.modalService.open(FormModalComponent);
     modalRef.componentInstance.id = id;

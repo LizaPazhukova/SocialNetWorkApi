@@ -44,9 +44,7 @@ namespace SocialNetwork
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddIdentityServer()
-                .AddApiAuthorization<AppUser, ApplicationDbContext>();
-
-            
+                .AddApiAuthorization<AppUser, ApplicationDbContext>();           
 
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IMessageRepository, MessageRepository>();

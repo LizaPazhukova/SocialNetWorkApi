@@ -10,7 +10,7 @@ namespace SocialNetwork.Logic.Interfaces
     {
         PostDTO Create(int userId, string text);
         IEnumerable<PostDTO> GetPosts(int userId);
-        void CreateComment(int id, int userId, string text);
+        void CreateComment(CommentDTO commentDto, int userId);
         void LikePost(int userId, int postId);
         void Delete(int id);
     }

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using SocialNetwork.Dal.Models;
 using SocialNetwork.Logic.DTO;
 using SocialNetwork.Logic.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SocialNetwork.Controllers
 {
@@ -50,7 +51,6 @@ namespace SocialNetwork.Controllers
         [HttpGet("allMessages")]
         public IEnumerable<MessageDTO> GetAllMessages()
         {
-
             IEnumerable<MessageDTO> messages = _messageService.GetAllMessages();
             return messages;
         }
@@ -62,7 +62,6 @@ namespace SocialNetwork.Controllers
 
             return NoContent();
         }
-
         [HttpPut("update")]
         public IActionResult UpdateMessage(MessageDTO messageDto)
         {
