@@ -10,7 +10,6 @@ namespace SocialNetwork.Logic.Interfaces
     public interface IUserService
     {
         IEnumerable<UserDTO> GetUsers(SearchUser userSearchParams);
-        IEnumerable<UserDTO> SearchedUsers(string name);
         Task<UserDTO> GetUser(int id);
 
     }

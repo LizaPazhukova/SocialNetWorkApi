@@ -18,7 +18,7 @@ namespace SocialNetwork.Logic.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly UserManager<AppUser> _userManager;
-        private IMapper _mapper;
+        private readonly IMapper _mapper;
         public UserService(IUnitOfWork unitOfWork, IMapper mapper, UserManager<AppUser> userManager)
         {
             _unitOfWork = unitOfWork;
@@ -59,20 +59,6 @@ namespace SocialNetwork.Logic.Services
             if (userSearchParams.MinAge != null || userSearchParams.MaxAge != null)
             {
                 users = users.Where(u=>u.BirthDate.HasValue && Math.Abs(u.BirthDate.Value.Year-DateTime.Today.Year) >= userSearchParams.MinAge && Math.Abs(u.BirthDate.Value.Year - DateTime.Today.Year) <= userSearchParams.MaxAge);
-            }
-            return _mapper.Map<IEnumerable<UserDTO>>(users);
-        }
-
-        public IEnumerable<UserDTO> SearchedUsers(string name)
-        {
-            IEnumerable<AppUser> users;
-            if (string.IsNullOrEmpty(name))
-            {
-                users = _unitOfWork.Users.GetAll().OrderBy(i => i.Id);
-            }
-            else
-            {
-                users = _unitOfWork.Users.GetAll().Where(i => i.FullName.Contains(name, StringComparison.OrdinalIgnoreCase)).OrderBy(i => i.Id);
             }
             return _mapper.Map<IEnumerable<UserDTO>>(users);
         }

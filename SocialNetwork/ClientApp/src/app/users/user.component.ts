@@ -35,11 +35,11 @@ export class UserComponent implements OnInit {
   ngOnInit() {
     this.UserService.getUsers(this.searchUser).subscribe(result => {
       this.users = result;
-    }, error => console.error(error));
+    }, error => console.log(error));
     this.UserService.getCurrentUser().subscribe(result => {
       this.currentUser = result;
       this.isAdmin = this.currentUser && this.currentUser.roles && this.currentUser.roles.includes("Admin");
-    }, error => console.error(error));
+    }, error => console.log(error));
   }
   private createForm() {
     this.form = this.formBuilder.group({
@@ -64,10 +64,10 @@ export class UserComponent implements OnInit {
     
   }
   public friends = this.FriendRequestService.getFriends().subscribe(result => this.friends = result);
-  sendFriendRequest(id: number) {
 
+  sendFriendRequest(id: number) {
     this.FriendRequestService.sendFriendRequest(id);
-  
+    alert("Request was sended!")
   }
   isFriend(user: User): boolean {
     

@@ -15,7 +15,7 @@ const operators_1 = require("rxjs/operators");
 let InterceptorService = class InterceptorService {
     constructor() { }
     handleError(error) {
-        console.log("lalalalalalalala");
+        console.log(error.message);
         return rxjs_1.throwError(error);
     }
     intercept(req, next) {

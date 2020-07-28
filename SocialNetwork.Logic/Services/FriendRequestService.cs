@@ -20,8 +20,6 @@ namespace SocialNetwork.Logic.Services
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-
-
         public void AcceptRequest(int id)
         {
             var request = _unitOfWork.Requests.GetById(id);

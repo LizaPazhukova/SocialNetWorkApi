@@ -36,24 +36,6 @@ namespace SocialNetwork.Dal
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            
-            //string adminRoleName = "admin";
-            //string userRoleName = "user";
-            //string moderatorRoleName = "moderator";
-
-            //string adminEmail = "lizapazhukova@gmail.com";
-            //string adminPassword = "1994LizaPazh!";
-
-            //// добавляем роли
-            //AppRole adminRole = new AppRole { Id = 1, Name = adminRoleName };
-            //AppRole userRole = new AppRole { Id = 2, Name = userRoleName };
-            //AppRole moderatorRole = new AppRole { Id = 3, Name = moderatorRoleName };
-            //AppUser adminUser = new AppUser { Id = 1, Email = adminEmail };
-
-            //builder.Entity<AppRole>().HasData(new AppRole[] { adminRole, userRole });
-            //modelBuilder.Entity<User>().HasData(new User[] { adminUser });
-           
-
             base.OnModelCreating(builder);
             builder.ConfigurePersistedGrantContext(_operationalStoreOptions.Value);
             builder.Entity<AppUser>().Ignore(e => e.FullName);

@@ -11,7 +11,7 @@ import { catchError } from 'rxjs/operators';
 export class InterceptorService implements HttpInterceptor {
   constructor() { }
   handleError(error: HttpErrorResponse) {
-    console.log("lalalalalalalala");
+    console.log(error.message);
     return throwError(error);
   }
   intercept(req: HttpRequest<any>, next: HttpHandler):
